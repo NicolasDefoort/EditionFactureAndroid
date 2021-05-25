@@ -1,5 +1,8 @@
 package com.example.editionfactureandroid;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -10,13 +13,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -73,6 +80,18 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         PdfDocument pdfDocument = new PdfDocument(writer);
         Document document = new Document(pdfDocument);
 
+
+        Drawable d1= getDrawable(R.drawable.image1);
+        Bitmap bitmap1=((BitmapDrawable)d1).getBitmap();
+        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+        bitmap1.compress(Bitmap.CompressFormat.PNG,100,stream1);
+        byte[] bitmapData1 = stream1.toByteArray();
+
+        ImageData imageData1 = ImageDataFactory.create(bitmapData1);
+        Image image1 = new Image(imageData1);
+        image1.setHeight(50);
+
+
         float columnWidth[]={80,80,80,80,80,80};
         Table table = new Table(columnWidth);
 
@@ -83,6 +102,7 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         table.addCell(new Cell().add(new Paragraph(autre)));
 
         table.addCell(new Cell().add(new Paragraph(prix)));
+        table.addCell(new Cell().add(image1));
         table.addCell(new Cell().add(new Paragraph("gdrw")));
         table.addCell(new Cell().add(new Paragraph("rgd")));
         table.addCell(new Cell().add(new Paragraph("vdrd")));
