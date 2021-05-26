@@ -18,6 +18,7 @@ import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
@@ -91,26 +92,71 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         Image image1 = new Image(imageData1);
         image1.setHeight(50);
 
+        Drawable d2= getDrawable(R.drawable.image2);
+        Bitmap bitmap2=((BitmapDrawable)d2).getBitmap();
+        ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+        bitmap2.compress(Bitmap.CompressFormat.PNG,100,stream2);
+        byte[] bitmapData2 = stream2.toByteArray();
 
-        float columnWidth[]={80,80,80,80,80,80};
+        ImageData imageData2 = ImageDataFactory.create(bitmapData2);
+        Image image2= new Image(imageData2);
+        image2.setHeight(50);
+
+        Drawable d3= getDrawable(R.drawable.image3);
+        Bitmap bitmap3=((BitmapDrawable)d3).getBitmap();
+        ByteArrayOutputStream stream3 = new ByteArrayOutputStream();
+        bitmap3.compress(Bitmap.CompressFormat.PNG,100,stream3);
+        byte[] bitmapData3 = stream3.toByteArray();
+
+        ImageData imageData3 = ImageDataFactory.create(bitmapData3);
+        Image image3= new Image(imageData3);
+        image3.setHeight(50);
+
+
+        float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
 
-        table.addCell(new Cell().add(new Paragraph(name)));
-        table.addCell(new Cell().add(new Paragraph(firstName)));
-        table.addCell(new Cell().add(new Paragraph(date)));
-        table.addCell(new Cell().add(new Paragraph(phone)));
-        table.addCell(new Cell().add(new Paragraph(autre)));
+        table.addCell(new Cell(3,3).add(image1).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,1).add(image2));
+        table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,3).add(image3).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell().add(new Paragraph(prix)));
-        table.addCell(new Cell().add(image1));
-        table.addCell(new Cell().add(new Paragraph("gdrw")));
-        table.addCell(new Cell().add(new Paragraph("rgd")));
-        table.addCell(new Cell().add(new Paragraph("vdrd")));
-        table.addCell(new Cell().add(new Paragraph("vdr")));
+        table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,1).add(new Paragraph("Date : ")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph(date)).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("2104161/1")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,9).add(new Paragraph("Tél : "+date)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("Fax : "+date)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("Mail : "+date)).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("A l'attention de :")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("Monsieur POIRSON")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("408 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(4,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,9).add(new Paragraph("NOM DU CLIENT : ")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : ")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("OBJET : ")).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(2,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         document.add(table);
         document.close();
+
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
+        System.out.println(pdPath);
 
     }
 
