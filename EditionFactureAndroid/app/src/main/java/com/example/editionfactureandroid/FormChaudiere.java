@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,32 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         TextView prixTitle = findViewById(R.id.textViewPrix);
         TextView dateTitle = findViewById(R.id.textViewDate);
 
+        ///////////////////////////Création d'un dossier il il n'existe pas encore *//////////////////////////////////
+        File folder = new File(Environment.getExternalStorageDirectory() + "/TollCulator");
+        boolean success = true;
+        if (!folder.exists()) {
+            Toast.makeText(this, "Directory Does Not Exist, Create It", Toast.LENGTH_SHORT).show();
+            success = folder.mkdir();
+        }
+        if (success) {
+            Toast.makeText(this, "Directory Created", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+        }
+        //////////////////////////////////////////////////////////////////////////
+
+
+        //////Recuperation de la liste des fichiers dans un dossier//////////
+        String path = Environment.getExternalStorageDirectory().toString()+"/PDF";
+        Log.d("Files", "Path: " + path);
+        File directory = new File(path);
+        File[] files = directory.listFiles();
+        Log.d("Files", "Size: "+ files.length);
+        for (int i = 0; i < files.length; i++)
+        {
+            Log.d("Files", "FileName:" + files[i].getName());
+        }
+        ////////////////////////////////////////////////////////////////////////
     }
 
 
@@ -73,8 +100,8 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         String autre = autreText.getText().toString();
         String prix = prixText.getText().toString();
 
-        String pdPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-        File file = new File(pdPath,"myPDF2.pdf");
+        String pdPath = Environment.getExternalStorageDirectory().toString();
+        File file = new File(pdPath+"/"+"PDF","myPDF3.pdf");
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -116,41 +143,41 @@ public class FormChaudiere extends AppCompatActivity implements View.OnClickList
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
 
-        table.addCell(new Cell(3,3).add(image1).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,3).add(image1));
+        table.addCell(new Cell(3,1).add(new Paragraph("")));
         table.addCell(new Cell(3,1).add(image2));
-        table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,3).add(image3).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,1).add(new Paragraph("")));
+        table.addCell(new Cell(3,3).add(image3));
 
-        table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,1).add(new Paragraph("Date : ")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph(date)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,6).add(new Paragraph("")));
+        table.addCell(new Cell(1,1).add(new Paragraph("Date : ").setBold()));
+        table.addCell(new Cell(1,2).add(new Paragraph(date)));
 
-        table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("2104161/1")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")));
+        table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ").setBold()));
+        table.addCell(new Cell(1,2).add(new Paragraph("2104161/1")));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("")));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("Tél : "+date)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("Fax : "+date)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("Mail : "+date)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("Tél : "+date)));
+        table.addCell(new Cell(1,9).add(new Paragraph("Fax : "+date)));
+        table.addCell(new Cell(1,9).add(new Paragraph("Mail : "+date)));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("")));
 
-        table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph("A l'attention de :")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph("Monsieur POIRSON")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph("408 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(4,5).add(new Paragraph("")));
+        table.addCell(new Cell(1,4).add(new Paragraph("A l'attention de :").setBold()));
+        table.addCell(new Cell(1,4).add(new Paragraph("Monsieur POIRSON")));
+        table.addCell(new Cell(1,4).add(new Paragraph("408 Rue de Beaumetz")));
+        table.addCell(new Cell(1,4).add(new Paragraph("59310 SAMEON")));
 
-        table.addCell(new Cell(4,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(4,9).add(new Paragraph("")));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("NOM DU CLIENT : ")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : ")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("OBJET : ")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("NOM DU CLIENT : ").setBold()));
+        table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : ").setBold()));
+        table.addCell(new Cell(1,9).add(new Paragraph("OBJET : ").setBold()));
 
-        table.addCell(new Cell(2,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(2,9).add(new Paragraph("")));
 
         document.add(table);
         document.close();
