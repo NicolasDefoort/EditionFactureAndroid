@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonCreateDevis"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="45dp"
+        android:backgroundTint="#FDA000"
+        android:text="@string/cr_er_devis"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonApercu" />
+
+    <EditText
+        android:id="@+id/editTextTotalHT"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/total_ht"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity"
+        android:importantForAutofill="no" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="404dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image1" />
+
+    <EditText
+        android:id="@+id/editTextDesignation"
+        android:layout_width="360dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="26dp"
+        android:ems="10"
+        android:hint="@string/d_signation"
+        android:importantForAutofill="no"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/editTextQuantity"
+        android:layout_width="175dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/quantit"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDesignation"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/editTextPUHT"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/pu_ht"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/buttonApercu"
+        android:layout_width="189dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#4E8E5E"
+        android:text="@string/aper_u"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTotalHT" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

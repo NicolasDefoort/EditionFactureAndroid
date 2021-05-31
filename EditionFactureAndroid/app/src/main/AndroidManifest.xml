@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EditionFactureAndroid">
 
-        <activity android:name=".FormChaudiere" />
+        <activity android:name=".CreateDevis" />
+        <activity android:name=".SecondPartDevisEdition" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

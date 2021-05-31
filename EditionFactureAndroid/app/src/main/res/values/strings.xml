@@ -5,8 +5,8 @@
     <string name="cr_er_le_pdf">Créer le PDF</string>
     <string name="phone">phone</string>
     <string name="date">date</string>
-    <string name="name">Name</string>
-    <string name="firstname">FirstName</string>
+
+
     <string name="Prix">Prix</string>
     <string name="Autre">Autre</string>
     <string name="Name">Name</string>
@@ -14,6 +14,31 @@
     <string name="autre">Autre</string>
     <string name="Date">Date</string>
     <string name="Phone">Phone</string>
+    <string name="faire_un_devis">Faire un devis</string>
+    <string name="faire_une_facture">Faire une facture</string>
+
+    <string name="button">Button</string>
+    <string name="clients">Clients</string>
+    <string name="devis">Devis</string>
+
+    <string name="todo">TODO</string>
+    <string name="monsieur">Monsieur</string>
+    <string name="madame">Madame</string>
+    <string name="nom">Nom</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="hint">hint</string>
+    <string name="adresse">Adresse</string>
+    <string name="code_postal">Code Postal</string>
+    <string name="ville">Ville</string>
+    <string name="m_me_adresse">Même adresse</string>
+    <string name="suivant">Suivant</string>
+    <string name="adresse_des_travaux">Adresse des travaux</string>
+    <string name="d_signation">Désignation</string>
+    <string name="aper_u">Aperçu</string>
+    <string name="cr_er_devis">Créer Devis</string>
+    <string name="total_ht">Total HT</string>
+    <string name="pu_ht">PU HT</string>
+    <string name="quantit">Quantité</string>
 
 
 </resources>

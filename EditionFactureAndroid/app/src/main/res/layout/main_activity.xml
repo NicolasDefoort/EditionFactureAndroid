@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image1" />
+        app:srcCompat="@drawable/image1"
+        android:contentDescription="@string/todo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -37,7 +38,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:text="Faire un devis"
+            android:backgroundTint="#FDA000"
+            android:text="@string/faire_un_devis"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +52,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="5dp"
-            android:text="Faire une facture"
+            android:backgroundTint="#FDA000"
+            android:text="@string/faire_une_facture"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +66,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="5dp"
-            android:text="Button"
+            android:backgroundTint="#FDA000"
+            android:text="@string/button"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +80,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="5dp"
-            android:text="Button"
+            android:backgroundTint="#FDA000"
+            android:text="@string/button"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +106,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
-            android:text="Devis"
+            android:backgroundTint="#4E8E5E"
+            android:text="@string/devis"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +120,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
-            android:text="Clients"
+            android:backgroundTint="#4E8E5E"
+            android:text="@string/clients"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,6 +149,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:srcCompat="@drawable/power_off" />
+        app:srcCompat="@drawable/power_off"
+        android:contentDescription="@string/todo"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
