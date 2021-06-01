@@ -224,7 +224,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace)));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("TOTAL ").setBold()).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("TOTAL ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("€   -")).setBackgroundColor(grayBg));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
