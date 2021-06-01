@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.RadioAccessSpecifier;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +49,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class SecondPartDevisEdition extends AppCompatActivity implements View.OnClickListener {
+public class SecondPartDevisEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    private EditText designation,quantity, puHT, totalHT;
+
+    private RadioGroup radioGroup2;
+    private EditText designation,quantity, puHT;
+    private RadioButton selectedRadio2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
@@ -56,13 +62,23 @@ public class SecondPartDevisEdition extends AppCompatActivity implements View.On
         designation = findViewById(R.id.editTextDesignation);
         quantity = findViewById(R.id.editTextQuantity);
         puHT = findViewById(R.id.editTextPUHT);
-        totalHT=findViewById(R.id.editTextTotalHT);
+
         Button createDevis = findViewById(R.id.buttonCreateDevis);
         createDevis.setOnClickListener(this);
 
+        radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA);
+        radioGroup2.clearCheck();
+        radioGroup2.setOnCheckedChangeListener(this);
 
 
 
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        selectedRadio2= (RadioButton)group.findViewById(checkedId);
+        //String r1=(String) selectedRadio2.getText();
+        //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
 
     }
 
@@ -91,12 +107,17 @@ public class SecondPartDevisEdition extends AppCompatActivity implements View.On
         String designat = designation.getText().toString();
         String quantite = quantity.getText().toString();
         String puht = puHT.getText().toString();
-
+        String tva = (String) selectedRadio2.getText();
 
         int quantiteInt = new Integer(quantite).intValue();
-        int puhtInt = new Integer(puht).intValue();
+        float puhtfloat = new Float(puht).floatValue();
 
-        int totalHt=quantiteInt*puhtInt;
+        float totalHt=quantiteInt*puhtfloat;
+
+        String stringTotalHt=Float.toString(totalHt);
+
+        System.out.println(totalHt);
+        System.out.println(stringTotalHt);
 
 
 
@@ -191,20 +212,20 @@ public class SecondPartDevisEdition extends AppCompatActivity implements View.On
         table.addCell(new Cell(1,5).add(new Paragraph(designat)));
         table.addCell(new Cell(1,1).add(new Paragraph(quantite)));
         table.addCell(new Cell(1,1).add(new Paragraph("€"+ whiteSpace +whiteSpace+puht)));
-        table.addCell(new Cell(1,2).add(new Paragraph("€"+ whiteSpace +whiteSpace+ String.valueOf(totalHt))));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+stringTotalHt)));
 
-        table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("SOUS-TOTAL").setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,1).add(new Paragraph("€"+whiteSpace+whiteSpace+String.valueOf(totalHt))).setBackgroundColor(grayBg));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+ stringTotalHt)).setBackgroundColor(grayBg));
 
 
-        table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("T.V.A 10 %").setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,1).add(new Paragraph("€"+whiteSpace+whiteSpace)));
+        table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("T.V.A "+tva).setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace)));
 
-        table.addCell(new Cell(1,7).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,1).add(new Paragraph("TOTAL ").setBold()).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,1).add(new Paragraph("€      -")).setBackgroundColor(grayBg));
+        table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("TOTAL ").setBold()).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("€   -")).setBackgroundColor(grayBg));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 

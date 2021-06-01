@@ -11,7 +11,6 @@
         android:layout_width="360dp"
         android:layout_height="60dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="121dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="45dp"
         android:backgroundTint="#FDA000"
@@ -19,21 +18,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonApercu" />
-
-    <EditText
-        android:id="@+id/editTextTotalHT"
-        android:layout_width="170dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/total_ht"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity"
-        android:importantForAutofill="no" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -52,53 +37,121 @@
         android:id="@+id/editTextDesignation"
         android:layout_width="360dp"
         android:layout_height="70dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
         android:ems="10"
         android:hint="@string/d_signation"
         android:importantForAutofill="no"
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
         android:id="@+id/editTextQuantity"
-        android:layout_width="175dp"
+        android:layout_width="170dp"
         android:layout_height="70dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/quantit"
+        android:importantForAutofill="no"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDesignation"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDesignation" />
 
     <EditText
         android:id="@+id/editTextPUHT"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
         android:ems="10"
         android:hint="@string/pu_ht"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDesignation" />
 
     <Button
         android:id="@+id/buttonApercu"
         android:layout_width="189dp"
         android:layout_height="63dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#4E8E5E"
         android:text="@string/aper_u"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreateDevis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTVA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPUHT">
+
+        <RadioButton
+            android:id="@+id/radioButton155"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_5_5" />
+
+        <RadioButton
+            android:id="@+id/radioButton210"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10 %" />
+
+        <RadioButton
+            android:id="@+id/radioButton320"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20 %" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewTVA"
+        android:layout_width="58dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="12dp"
+        android:elegantTextHeight="true"
+        android:freezesText="true"
+        android:text="T.V.A"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupTVA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="360dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="Objet"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTotalHT" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
