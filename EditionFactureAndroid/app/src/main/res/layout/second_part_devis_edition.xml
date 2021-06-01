@@ -46,7 +46,7 @@
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextObject" />
 
     <EditText
         android:id="@+id/editTextQuantity"
@@ -134,14 +134,12 @@
         android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalAlign="center"
         app:layout_constraintEnd_toStartOf="@+id/radioGroupTVA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextObject"
         android:layout_width="360dp"
         android:layout_height="70dp"
         android:layout_marginStart="25dp"

@@ -40,6 +40,8 @@
     <string name="pu_ht">PU HT</string>
     <string name="quantit">Quantité</string>
     <string name="_5_5">5.5 %</string>
+    <string name="nom_soci_t_qui_les_travaux_sont_destin_s">Nom/Société à qui les travaux sont destinés</string>
+    <string name="m_me_nom">Même nom</string>
 
 
 </resources>

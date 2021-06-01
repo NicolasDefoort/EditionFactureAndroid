@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
 
-
-    private EditText lastname, firstname, address,postalCode, city,todoAddress;
+    private CheckBox sameName, sameAddress;
+    private EditText lastname, firstname, address,postalCode, city,todoAddress,todoName;
     private RadioGroup radioGroup;
     private RadioButton selectedRadio;
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +36,15 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         postalCode = findViewById(R.id.editTextPostalCode);
         city= findViewById(R.id.editTextCity);
         todoAddress=findViewById(R.id.editTextToDoAddress);
+        todoName =findViewById(R.id.editTextToDoName);
 
         Button nextButton = findViewById(R.id.buttonNextDevis);
         nextButton.setOnClickListener(this);
+
+        sameName=findViewById(R.id.checkBoxName);
+        sameAddress=findViewById(R.id.checkBoxAddress);
+
+
 
 
     }
@@ -64,8 +69,10 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         String adresse = address.getText().toString();
         String codePostal = postalCode.getText().toString();
         String ville = city.getText().toString();
-        String todoAdresse = todoAddress.getText().toString();
 
+
+
+        String whiteSpace =" ";
 
         Intent intent =new Intent(this, SecondPartDevisEdition.class);
 
@@ -75,11 +82,35 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         intent.putExtra("adresse",adresse);
         intent.putExtra("code postal",codePostal);
         intent.putExtra("ville",ville);
-        intent.putExtra("todoAdresse",todoAdresse);
+        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
+        intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){
             startActivity(intent);
 
+        }
+
+
+    }
+    public String todoAdresse(String adresse){
+        if (sameAddress.isChecked()){
+            String todoAdresse = adresse+todoAddress.getText().toString();
+            return todoAdresse;
+        }
+        else{
+            String todoAdresse = todoAddress.getText().toString();
+            return todoAdresse;
+        }
+    }
+
+    public String todonom(String nom){
+        if (sameAddress.isChecked()){
+            String todoNom = nom+todoName.getText().toString();
+            return todoNom;
+        }
+        else{
+            String todoNom = todoName.getText().toString();
+            return todoNom;
         }
     }
 }

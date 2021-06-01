@@ -45,15 +45,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
 public class SecondPartDevisEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-
+    private float totalTVA;
     private RadioGroup radioGroup2;
-    private EditText designation,quantity, puHT;
+    private EditText designation,quantity, puHT,object;
     private RadioButton selectedRadio2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         designation = findViewById(R.id.editTextDesignation);
         quantity = findViewById(R.id.editTextQuantity);
         puHT = findViewById(R.id.editTextPUHT);
+        object = findViewById(R.id.editTextObject);
 
         Button createDevis = findViewById(R.id.buttonCreateDevis);
         createDevis.setOnClickListener(this);
@@ -77,6 +79,9 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         selectedRadio2= (RadioButton)group.findViewById(checkedId);
+
+
+
         //String r1=(String) selectedRadio2.getText();
         //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
 
@@ -95,6 +100,12 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createPDF() throws FileNotFoundException{
 
+
+        DecimalFormat df = new DecimalFormat ( ) ;
+        df.setMaximumFractionDigits ( 2 ) ;
+        df.setMinimumFractionDigits ( 2 ) ;
+        df.setDecimalSeparatorAlwaysShown ( true ) ;
+
         Intent intent =getIntent();
         String nom = intent.getStringExtra("nom");
         String prenom = intent.getStringExtra("prenom");
@@ -103,8 +114,10 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         String todoAdresse = intent.getStringExtra("todoAdresse");
         String code_postal = intent.getStringExtra("code postal");
         String ville = intent.getStringExtra("ville");
+        String todoNom = intent.getStringExtra("todoNom");
 
         String designat = designation.getText().toString();
+        String objet = object.getText().toString();
         String quantite = quantity.getText().toString();
         String puht = puHT.getText().toString();
         String tva = (String) selectedRadio2.getText();
@@ -116,8 +129,30 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         String stringTotalHt=Float.toString(totalHt);
 
-        System.out.println(totalHt);
-        System.out.println(stringTotalHt);
+        int radioButtonID = radioGroup2.getCheckedRadioButtonId();
+        System.out.println(radioButtonID);
+
+
+
+
+        if (radioButtonID==R.id.radioButton155){
+            totalTVA= (float) (totalHt*0.05);
+        }
+
+        else if (radioButtonID==R.id.radioButton210){
+            totalTVA= (float) (totalHt*0.1);
+        }
+
+        else if (radioButtonID==R.id.radioButton320){
+            totalTVA= (float) (totalHt*0.2);
+        }
+        else{
+            Toast.makeText(this,"ERROR", Toast.LENGTH_LONG).show();
+        }
+
+        float TOTAL = totalTVA+totalHt;
+
+
 
 
 
@@ -194,13 +229,14 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("Devis à l'attention de :").setBold()).setBorder(Border.NO_BORDER));
+
         table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+nom+whiteSpace+ prenom )).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(adresse)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph(code_postal + ville)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,9).add(new Paragraph(("NOM DU CLIENT :  ")+(nom+whiteSpace+prenom)).setFontSize(11)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph(("NOM DU CLIENT :  ")+(todoNom)).setFontSize(11)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("OBJET : ").setFontSize(11)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("OBJET : "+objet).setFontSize(11)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(2,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
@@ -212,20 +248,20 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,5).add(new Paragraph(designat)));
         table.addCell(new Cell(1,1).add(new Paragraph(quantite)));
         table.addCell(new Cell(1,1).add(new Paragraph("€"+ whiteSpace +whiteSpace+puht)));
-        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+stringTotalHt)));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(totalHt))));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("SOUS-TOTAL").setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+ stringTotalHt)).setBackgroundColor(grayBg));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+ df.format(totalHt))).setBackgroundColor(grayBg));
 
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("T.V.A "+tva).setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace)));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(totalTVA))));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("TOTAL ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("€   -")).setBackgroundColor(grayBg));
+        table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(TOTAL))).setBackgroundColor(grayBg));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
