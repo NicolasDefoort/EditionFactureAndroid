@@ -1,10 +1,8 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.RadioAccessSpecifier;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,15 +10,9 @@ import android.widget.EditText;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -76,6 +68,13 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
     }
 
+    public static String upperCaseFirst(String val) {
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
+    }
+
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         selectedRadio2= (RadioButton)group.findViewById(checkedId);
@@ -130,7 +129,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         String stringTotalHt=Float.toString(totalHt);
 
         int radioButtonID = radioGroup2.getCheckedRadioButtonId();
-        System.out.println(radioButtonID);
+
 
 
 
@@ -153,11 +152,25 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         float TOTAL = totalTVA+totalHt;
 
 
+        String whiteSpace =" ";
+        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+
+         /*File folder = new File(Environment.getExternalStorageDirectory() + "/Cothermie"+"/Clients"+upperCaseFirst(nom)+upperCaseFirst(prenom));
+        boolean success = true;
+        if (!folder.exists()) {
+            Toast.makeText(this, "Directory Client created", Toast.LENGTH_SHORT).show();
+            success = folder.mkdir();
+        }
+        if (!success) {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+        }*/
 
 
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
-        File file = new File(pdPath+"/"+"PDF","myPDF3.pdf");
+        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Devis",upperCaseFirst(nom)+upperCaseFirst(prenom)+".pdf");
+
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -197,32 +210,34 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         Image image3= new Image(imageData3);
         image3.setHeight(50);
 
-        String whiteSpace =" ";
+
 
 
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
 
         table.addCell(new Cell(3,3).add(image1).setBorder(Border.NO_BORDER));
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(3,1).add(image2).setBorder(Border.NO_BORDER));
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(3,3).add(image3).setBorder(Border.NO_BORDER));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
         table.addCell(new Cell(1,1).add(new Paragraph("Date : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("2104161/1")).setBorder(Border.NO_BORDER));
-
+        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,7).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("Offre  valable 1 mois").setFontSize(8)).setBorder(Border.NO_BORDER));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,9).add(new Paragraph("Tél : 06 87 54 52 29 ").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Fax : 03 27 41 52 47").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Mail : cothermie@gmail.com").setFontSize(10)).setBorder(Border.NO_BORDER));

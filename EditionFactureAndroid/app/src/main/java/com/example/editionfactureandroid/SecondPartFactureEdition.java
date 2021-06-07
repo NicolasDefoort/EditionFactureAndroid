@@ -59,6 +59,8 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
+
+        System.out.println("///////////////////////");
         setContentView(R.layout.second_part_devis_edition);
         designation = findViewById(R.id.editTextDesignation);
         quantity = findViewById(R.id.editTextQuantity);
