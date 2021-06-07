@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,7 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         radioGroup.clearCheck();
         radioGroup.setOnCheckedChangeListener(this);
+
 
         lastname = findViewById(R.id.editTextLastName);
         firstname =findViewById(R.id.editTextFirstName);
@@ -63,6 +65,9 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
     @Override
     public void onClick(View v) {
 
+
+
+
         String prenom = firstname.getText().toString();
         String nom = lastname.getText().toString();
         String genre = (String) selectedRadio.getText();
@@ -86,8 +91,21 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){
-            startActivity(intent);
 
+            if(genre.isEmpty()){
+                Toast.makeText(this,"RadioButton obligatoire", Toast.LENGTH_LONG).show();
+
+            }
+            else if (nom.isEmpty()){
+                lastname.setError("Champ obligatoire");
+            }
+            else if (prenom.isEmpty()){
+                firstname.setError("Champ obligatoire");
+            }
+            else {
+                startActivity(intent);
+
+            }
         }
 
 
