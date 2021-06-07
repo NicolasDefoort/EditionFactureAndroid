@@ -8,20 +8,20 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="404dp"
+        android:layout_width="wrap_content"
         android:layout_height="99dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image1"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/image1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="388dp"
+        android:layout_width="0dp"
         android:layout_height="262dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
@@ -33,21 +33,22 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="360dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="5dp"
             android:backgroundTint="#FDA000"
             android:text="@string/faire_un_devis"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="360dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
@@ -61,7 +62,7 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="360dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
@@ -75,7 +76,7 @@
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="360dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
@@ -90,8 +91,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="387dp"
-        android:layout_height="201dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
@@ -101,29 +102,23 @@
 
         <Button
             android:id="@+id/button6"
-            android:layout_width="335dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="#4E8E5E"
             android:text="@string/devis"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="335dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
             android:backgroundTint="#4E8E5E"
             android:text="@string/clients"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -141,16 +136,16 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonExit"
-        android:layout_width="93dp"
-        android:layout_height="81dp"
+        android:layout_width="47dp"
+        android:layout_height="48dp"
         android:clickable="true"
+        android:contentDescription="@string/todo"
+        android:focusable="true"
         android:foreground="@drawable/power_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:srcCompat="@drawable/power_off"
-        android:contentDescription="@string/todo"
-        android:focusable="true" />
+        app:srcCompat="@drawable/power_off" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,16 @@ package com.example.editionfactureandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -35,6 +39,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+        File folder = new File(Environment.getExternalStorageDirectory() + "/Cothermie");
+        System.out.println("-------------");
+
+        System.out.println(Environment.getStorageDirectory() + "/Cothermie");
+        boolean success = true;
+        if (!folder.exists()) {
+
+            success = folder.mkdir();
+            Toast.makeText(this, "Directory Cothermie created", Toast.LENGTH_SHORT).show();
+        }
+        if (!success) {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+        }
+
+
+        File folder1 = new File(Environment.getExternalStorageDirectory() + "/Cothermie"+"/Devis");
+        boolean success1 = true;
+        if (!folder1.exists()) {
+
+            success1 = folder1.mkdir();
+            Toast.makeText(this, "Directory Devis created", Toast.LENGTH_SHORT).show();
+
+        }
+        if (!success1) {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+
+        }
+
+        File folder2 = new File(Environment.getExternalStorageDirectory() + "/Cothermie"+"/Facture");
+        boolean success2 = true;
+        if (!folder2.exists()) {
+
+            success2 = folder2.mkdir();
+            Toast.makeText(this, "Directory Facture created", Toast.LENGTH_SHORT).show();
+        }
+        if (!success2) {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+
+        }
+
+        File folder3 = new File(Environment.getExternalStorageDirectory() + "/Cothermie"+"/Clients");
+        boolean success3 = true;
+        if (!folder3.exists()) {
+
+            success3 = folder3.mkdir();
+            Toast.makeText(this, "Directory Clients created", Toast.LENGTH_SHORT).show();
+        }
+        if (!success3) {
+            Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     @Override
@@ -46,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v.getId()== R.id.button1){
+
+
+
+
             startActivity(new Intent(this, CreateDevis.class));
 
         }
