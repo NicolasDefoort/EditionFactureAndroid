@@ -281,24 +281,24 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,3).add(new Paragraph("CONDITIONS DE REGLEMENT").setFontSize(11).setBold()).setBackgroundColor(grayBg).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,3).add(new Paragraph("CONDITIONS DE REGLEMENT").setFontSize(10).setBold()).setBackgroundColor(grayBg).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("30 % à la commande").setFontSize(10)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("60 % à la pose du matériel").setFontSize(10)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("10 % à la facturation fin de travaux").setFontSize(10)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("30 % à la commande").setFontSize(9)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("60 % à la pose du matériel").setFontSize(9)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("10 % à la facturation fin de travaux").setFontSize(9)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
 
-        table.addCell(new Cell(1,3).add(new Paragraph("MENTION MANUSCRITE").setFontSize(11).setBold()).setBackgroundColor(grayBg).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,3).add(new Paragraph("MENTION MANUSCRITE").setFontSize(10).setBold()).setBackgroundColor(grayBg).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,9).add(new Paragraph("Devis reçu avant exécution des travaux - Bon pour accord").setFontSize(10)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("Devis reçu avant exécution des travaux - Bon pour accord").setFontSize(9)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
 
@@ -308,8 +308,6 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(3,4).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(3,5).add(image3).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(4,9).add(new Paragraph("\n\n")).setBorder(Border.NO_BORDER));
-
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
 
@@ -318,6 +316,10 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
                 "Le transfert des risques de perte, vol et détérioration du matériel et dommages qu'il pourrait occasionner est transféré à l'acheteur lors de la livraison.\n" +
                 "Les éventuels frais de stationnement seront facturés en sus.").setFontSize(5).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
 
+        table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,9).add(new Paragraph("SARL au capital 10 000 € - 524 128 626 RM 590 - NAF 4322B - n° TVA FR79524128626 - n° siret 52412862600024\n" +
+                "Siège social : 1400 Rue de Beaumetz - 59310 Saméon\n" +
+                "Responsabilité Civile et Décenale - Police n°165765760001 - Assureur : GROUPAMA").setTextAlignment(TextAlignment.CENTER).setFontSize(6)).setBorder(Border.NO_BORDER));
 
 
         document.add(table);

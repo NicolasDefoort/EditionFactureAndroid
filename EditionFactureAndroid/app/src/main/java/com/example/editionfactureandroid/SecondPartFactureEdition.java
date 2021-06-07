@@ -360,6 +360,10 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
                 "La SARL COTHERMIE conserve la propriété du matériel installé jusqu'au paiement effectif de l'intégralité des factures émises.\n" +
                 "Le transfert des risques de perte, vol et détérioration du matériel et dommages qu'il pourrait occasionner est transféré à l'acheteur lors de la livraison.\n" +
                 "Les éventuels frais de stationnement seront facturés en sus.").setFontSize(5).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,9).add(new Paragraph("SARL au capital 10 000 € - 524 128 626 RM 590 - NAF 4322B - n° TVA FR79524128626 - n° siret 52412862600024\n" +
+                "Siège social : 1400 Rue de Beaumetz - 59310 Saméon\n" +
+                "Responsabilité Civile et Décenale - Police n°165765760001 - Assureur : GROUPAMA").setTextAlignment(TextAlignment.CENTER).setFontSize(6)).setBorder(Border.NO_BORDER));
 
 
 

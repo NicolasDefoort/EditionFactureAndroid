@@ -8,20 +8,22 @@
 
     <Button
         android:id="@+id/buttonnextTempoFacture"
-        android:layout_width="237dp"
-        android:layout_height="65dp"
+        android:layout_width="307dp"
+        android:layout_height="73dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="60dp"
+        android:backgroundTint="#FDA000"
         android:text="suivant"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextnumeroaffaireTempoFacture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="296dp"
+        android:layout_height="52dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="5dp"
@@ -34,8 +36,8 @@
 
     <EditText
         android:id="@+id/editTextNumeroFactureTempoFacture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="279dp"
+        android:layout_height="61dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
