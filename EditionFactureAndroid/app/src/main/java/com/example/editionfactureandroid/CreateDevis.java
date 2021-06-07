@@ -65,17 +65,12 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
     @Override
     public void onClick(View v) {
 
-
-
-
         String prenom = firstname.getText().toString();
         String nom = lastname.getText().toString();
         String genre = (String) selectedRadio.getText();
         String adresse = address.getText().toString();
         String codePostal = postalCode.getText().toString();
         String ville = city.getText().toString();
-
-
 
         String whiteSpace =" ";
 
@@ -87,7 +82,7 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         intent.putExtra("adresse",adresse);
         intent.putExtra("code postal",codePostal);
         intent.putExtra("ville",ville);
-        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
+        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace+codePostal+ville));
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){

@@ -99,7 +99,6 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createPDF() throws FileNotFoundException{
 
-
         DecimalFormat df = new DecimalFormat ( ) ;
         df.setMaximumFractionDigits ( 2 ) ;
         df.setMinimumFractionDigits ( 2 ) ;
@@ -215,7 +214,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(3,3).add(image1).setBorder(Border.NO_BORDER));
         System.out.println("/////////////////////////////");
         table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
@@ -245,10 +244,10 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("Devis à l'attention de :").setBold()).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+nom+whiteSpace+ prenom )).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+upperCaseFirst(nom)+whiteSpace+ upperCaseFirst(prenom) )).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(adresse)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,9).add(new Paragraph(("NOM DU CLIENT :  ")+(todoNom)).setFontSize(11)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("OBJET : "+objet).setFontSize(11)).setBorder(Border.NO_BORDER));
@@ -264,11 +263,11 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,1).add(new Paragraph(quantite)));
         table.addCell(new Cell(1,1).add(new Paragraph("€"+ whiteSpace +whiteSpace+puht)));
         table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(totalHt))));
-
+        System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("SOUS-TOTAL").setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+ df.format(totalHt))).setBackgroundColor(grayBg));
-
+        System.out.println("/////////////////////////////");
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("T.V.A "+tva).setFontSize(10).setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.MIDDLE)).setBorder(Border.NO_BORDER));
@@ -305,7 +304,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,5).add(new Paragraph("SIGNATURE").setFontSize(8)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(3,4).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,5).add(new Paragraph("signature")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,5).add(image3).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(4,9).add(new Paragraph("\n\n")).setBorder(Border.NO_BORDER));
 
@@ -319,9 +318,9 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
 
 
-
         document.add(table);
         document.close();
+
 
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
         System.out.println(pdPath);

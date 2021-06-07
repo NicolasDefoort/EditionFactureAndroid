@@ -54,28 +54,37 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
     private float totalTVA;
     private RadioGroup radioGroup2;
-    private EditText designation,quantity, puHT,object;
+    private EditText designation,quantity, puHT,object,paiementPose,acompte,solde;
     private RadioButton selectedRadio2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
+        setContentView(R.layout.second_part_facture_edition);
+        designation = findViewById(R.id.editTextDesignation2);
+        quantity = findViewById(R.id.editTextQuantity2);
+        puHT = findViewById(R.id.editTextPUHT2);
+        object = findViewById(R.id.editTextObject2);
+        paiementPose=findViewById(R.id.editTextPaiementPose);
+        acompte=findViewById(R.id.editTextAccompte);
+        solde = findViewById(R.id.editTextSolde);
 
-        System.out.println("///////////////////////");
-        setContentView(R.layout.second_part_devis_edition);
-        designation = findViewById(R.id.editTextDesignation);
-        quantity = findViewById(R.id.editTextQuantity);
-        puHT = findViewById(R.id.editTextPUHT);
-        object = findViewById(R.id.editTextObject);
 
-        Button createDevis = findViewById(R.id.buttonCreateDevis);
-        createDevis.setOnClickListener(this);
 
-        radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA);
+        Button createFacture = findViewById(R.id.buttonCreateFacture);
+        createFacture.setOnClickListener(this);
+
+        radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA2);
         radioGroup2.clearCheck();
         radioGroup2.setOnCheckedChangeListener(this);
 
 
 
+    }
+
+    public static String upperCaseFirst(String val) {
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
     }
 
     @Override
@@ -99,6 +108,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         }
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createPDF() throws FileNotFoundException{
 
@@ -107,6 +117,8 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         df.setMaximumFractionDigits ( 2 ) ;
         df.setMinimumFractionDigits ( 2 ) ;
         df.setDecimalSeparatorAlwaysShown ( true ) ;
+
+        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         Intent intent =getIntent();
         String nom = intent.getStringExtra("nom");
@@ -123,6 +135,9 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         String quantite = quantity.getText().toString();
         String puht = puHT.getText().toString();
         String tva = (String) selectedRadio2.getText();
+        String paiement_pose=paiementPose.getText().toString();
+        String soldee=solde.getText().toString();
+        String accompte=acompte.getText().toString();
 
         int quantiteInt = new Integer(quantite).intValue();
         float puhtfloat = new Float(puht).floatValue();
@@ -159,7 +174,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
-        File file = new File(pdPath+"/"+"PDF","myPDF3.pdf");
+        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+".pdf");
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -201,7 +216,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         String whiteSpace =" ";
 
-
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
 
@@ -212,17 +226,16 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(3,3).add(image3).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
         table.addCell(new Cell(1,1).add(new Paragraph("Date : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("2104161/1")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,5).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° de facture : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("2003112")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
@@ -233,7 +246,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("Devis à l'attention de :").setBold()).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+nom+whiteSpace+ prenom )).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+upperCaseFirst(nom)+whiteSpace+ upperCaseFirst(prenom))).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(adresse)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
 
@@ -263,8 +276,63 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(totalTVA))));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("TOTAL ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph("MONTANT TOTAL TTC").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(TOTAL))).setBackgroundColor(grayBg));
+
+        if (!accompte.matches("")){
+
+            table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("Acompte à la commande").setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+accompte)));
+
+        }
+        if (!paiement_pose.matches("")){
+            table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("Paiement à la pose").setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+paiement_pose)));
+
+        }
+        if (!soldee.matches("")){
+            table.addCell(new Cell(1,4).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,3).add(new Paragraph("Solde à la fin des travaux").setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+soldee)));
+
+        }
+
+        if ((!soldee.matches(""))||(!paiement_pose.matches(""))||(!accompte.matches(""))){
+
+
+            float paiementPoseFloat, soldeFloat, acompteFloat ;
+            if (soldee.matches("")){
+                soldeFloat=0;
+            }
+            else{
+                soldeFloat =new Float(soldee).floatValue();
+            }
+            if (paiement_pose.matches("")){
+                paiementPoseFloat=0;
+            }
+            else{
+                paiementPoseFloat=new Float(paiement_pose).floatValue();
+            }
+            if (accompte.matches("")){
+                acompteFloat=0;
+            }
+            else{
+                acompteFloat=new Float(accompte).floatValue();
+            }
+
+            float netAPayer=TOTAL-soldeFloat-acompteFloat-paiementPoseFloat;
+
+            table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("NET A PAYER").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+df.format(netAPayer))).setBackgroundColor(grayBg));
+
+        }
+
+
+
+
 
         table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
 
@@ -272,16 +340,16 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,2).add(new Paragraph("Date d'échéance :").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().plusDays(7).format(dateFormatter))).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,3).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("IBAN : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,5).add(new Paragraph("FR76 1627 5500 0008 0001 9443 058")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("FR76 1627 5500 0008 0001 9443 058")).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,3).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("BIC : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,5).add(new Paragraph("CEPAFRPP627")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("CEPAFRPP627")).setBorder(Border.NO_BORDER));
 
 
-        table.addCell(new Cell(4,9).add(new Paragraph("\n\n")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(4,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
 
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
