@@ -74,7 +74,7 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
 
         String whiteSpace =" ";
 
-        Intent intent =new Intent(this, SecondPartFactureEdition.class);
+        Intent intent =new Intent(this, TempoFacture.class);
 
         intent.putExtra("prenom",prenom);
         intent.putExtra("nom",nom);

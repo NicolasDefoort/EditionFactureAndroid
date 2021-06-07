@@ -74,7 +74,7 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
 
         String whiteSpace =" ";
 
-        Intent intent =new Intent(this, SecondPartDevisEdition.class);
+        Intent intent =new Intent(this, TempoDevis.class);
 
         intent.putExtra("prenom",prenom);
         intent.putExtra("nom",nom);

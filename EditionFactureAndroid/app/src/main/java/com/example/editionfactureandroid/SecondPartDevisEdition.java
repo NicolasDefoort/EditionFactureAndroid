@@ -113,6 +113,8 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         String code_postal = intent.getStringExtra("code postal");
         String ville = intent.getStringExtra("ville");
         String todoNom = intent.getStringExtra("todoNom");
+        String numeroaffaire = intent.getStringExtra("numeroaffaire");
+
 
         String designat = designation.getText().toString();
         String objet = object.getText().toString();
@@ -214,29 +216,29 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
         Table table = new Table(columnWidth);
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(3,3).add(image1).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(3,1).add(image2).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(3,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(3,3).add(image3).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(1,6).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,1).add(new Paragraph("Date : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+        table.addCell(new Cell(1,2).add(new Paragraph(numeroaffaire)).setBorder(Border.NO_BORDER));
+
         table.addCell(new Cell(1,7).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("Offre  valable 1 mois").setFontSize(8)).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        System.out.println("/////////////////////////////");
+
         table.addCell(new Cell(1,9).add(new Paragraph("Tél : 06 87 54 52 29 ").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Fax : 03 27 41 52 47").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Mail : cothermie@gmail.com").setFontSize(10)).setBorder(Border.NO_BORDER));

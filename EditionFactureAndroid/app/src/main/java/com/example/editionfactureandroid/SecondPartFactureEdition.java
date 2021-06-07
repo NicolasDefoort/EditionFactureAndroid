@@ -129,6 +129,8 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         String code_postal = intent.getStringExtra("code postal");
         String ville = intent.getStringExtra("ville");
         String todoNom = intent.getStringExtra("todoNom");
+        String nfacture = intent.getStringExtra("numerofacture");
+        String naffaire = intent.getStringExtra("numeroaffaire");
 
         String designat = designation.getText().toString();
         String objet = object.getText().toString();
@@ -231,11 +233,11 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         table.addCell(new Cell(1,5).add(new Paragraph("1400 Rue de Beaumetz")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° d'affaire : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph(naffaire)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,5).add(new Paragraph("59310 SAMEON")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("N° de facture : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,2).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,2).add(new Paragraph(nfacture)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
