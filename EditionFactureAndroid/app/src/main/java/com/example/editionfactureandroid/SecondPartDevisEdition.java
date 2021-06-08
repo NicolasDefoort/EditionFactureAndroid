@@ -90,7 +90,18 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
     @Override
     public void onClick(View v) {
         try {
-            createPDF();
+            String quantite = quantity.getText().toString();
+            String puht = puHT.getText().toString();
+            if (quantite.isEmpty()){
+                quantity.setError("Champ obligatoire");
+            }
+            else if (puht.isEmpty()){
+                puHT.setError("Champ obligatoire");
+            }
+            else{
+                createPDF();
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -212,6 +223,17 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         image3.setHeight(50);
 
 
+        Drawable d4= getDrawable(R.drawable.signature);
+        Bitmap bitmap4=((BitmapDrawable)d4).getBitmap();
+        ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
+        bitmap4.compress(Bitmap.CompressFormat.PNG,100,stream4);
+        byte[] bitmapData4 = stream4.toByteArray();
+
+        ImageData imageData4 = ImageDataFactory.create(bitmapData4);
+        Image image4= new Image(imageData4);
+        image4.setHeight(50);
+
+
 
 
         float columnWidth[]={50,50,50,50,50,50,50,50,50};
@@ -306,7 +328,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,5).add(new Paragraph("SIGNATURE").setFontSize(8)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(3,4).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,5).add(image3).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,5).add(image4).setBorder(Border.NO_BORDER));
 
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));

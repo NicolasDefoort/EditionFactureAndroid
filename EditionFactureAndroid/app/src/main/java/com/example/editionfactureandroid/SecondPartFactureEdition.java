@@ -102,7 +102,18 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
     @Override
     public void onClick(View v) {
         try {
-            createPDF();
+            String quantite = quantity.getText().toString();
+            String puht = puHT.getText().toString();
+            if (quantite.isEmpty()){
+                quantity.setError("Champ obligatoire");
+            }
+            else if (puht.isEmpty()){
+                puHT.setError("Champ obligatoire");
+            }
+            else{
+                createPDF();
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
