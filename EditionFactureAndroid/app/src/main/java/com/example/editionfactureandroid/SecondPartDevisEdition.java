@@ -44,12 +44,14 @@ import java.time.format.DateTimeFormatter;
 
 public class SecondPartDevisEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
+    DatabaseHelper myDb;
     private float totalTVA;
     private RadioGroup radioGroup2;
     private EditText designation,quantity, puHT,object;
     private RadioButton selectedRadio2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDb= new DatabaseHelper( this);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.second_part_devis_edition);
         designation = findViewById(R.id.editTextDesignation);
@@ -138,7 +140,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         float totalHt=quantiteInt*puhtfloat;
 
-        String stringTotalHt=Float.toString(totalHt);
+
 
         int radioButtonID = radioGroup2.getCheckedRadioButtonId();
 
@@ -162,6 +164,8 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         }
 
         float TOTAL = totalTVA+totalHt;
+
+        String stringTotal=Float.toString(TOTAL);
 
 
         String whiteSpace =" ";
@@ -347,6 +351,16 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         document.add(table);
         document.close();
 
+
+        boolean isInserted = myDb.insertData(prenom,
+                nom,
+                stringTotal);
+        if(isInserted=true){
+            Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+        }
 
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
         System.out.println(pdPath);
