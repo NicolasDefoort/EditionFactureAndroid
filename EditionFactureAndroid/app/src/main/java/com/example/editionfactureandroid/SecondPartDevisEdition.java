@@ -332,7 +332,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,5).add(new Paragraph("SIGNATURE").setFontSize(8)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(3,4).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,5).add(image4).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,5).add(image4.setRotationAngle(1.5708)).setBorder(Border.NO_BORDER));
 
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
@@ -352,9 +352,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         document.close();
 
 
-        boolean isInserted = myDb.insertData(prenom,
-                nom,
-                stringTotal);
+        boolean isInserted = myDb.insertData(prenom, nom, adresse, ville, code_postal, genre, objet, todoNom ,todoAdresse,puht, tva);
         if(isInserted=true){
             Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
         }

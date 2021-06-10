@@ -82,14 +82,13 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
         intent.putExtra("adresse",adresse);
         intent.putExtra("code postal",codePostal);
         intent.putExtra("ville",ville);
-        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace+codePostal+ville));
+        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace+codePostal+whiteSpace+ville+whiteSpace));
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){
 
             if(genre.isEmpty()){
                 Toast.makeText(this,"RadioButton obligatoire", Toast.LENGTH_LONG).show();
-
             }
             else if (nom.isEmpty()){
                 lastname.setError("Champ obligatoire");
