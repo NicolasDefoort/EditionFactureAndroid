@@ -266,7 +266,6 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("Tél : 06 87 54 52 29 ").setFontSize(10)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("Fax : 03 27 41 52 47").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Mail : cothermie@gmail.com").setFontSize(10)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
@@ -352,7 +351,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         document.close();
 
 
-        boolean isInserted = myDb.insertData(prenom, nom, adresse, ville, code_postal, genre, objet, todoNom ,todoAdresse,puht, tva);
+        boolean isInserted = myDb.insertData(prenom, nom, adresse, ville, code_postal, genre, objet, todoNom ,todoAdresse,designat,quantite,puht, tva,numeroaffaire, LocalDate.now().format(dateFormatter),df.format(TOTAL)+" €");
         if(isInserted=true){
             Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
         }

@@ -77,6 +77,26 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         radioGroup2.clearCheck();
         radioGroup2.setOnCheckedChangeListener(this);
 
+        Intent intent =getIntent();
+        designation.setText(intent.getStringExtra("designation"));
+        object.setText(intent.getStringExtra("objet"));
+        quantity.setText(intent.getStringExtra("quantite"));
+        puHT.setText(intent.getStringExtra("puht"));
+
+
+
+        if(intent.getStringExtra("tva").equals("5.5 %")){
+            radioGroup2.check(R.id.radioButton155);}
+        if(intent.getStringExtra("tva").equals("10 %".toUpperCase())){
+            radioGroup2.check(R.id.radioButton210);}
+        if(intent.getStringExtra("tva").equals("20 %".toUpperCase())){
+            radioGroup2.check(R.id.radioButton320);}
+
+
+
+
+
+
 
 
     }
@@ -253,7 +273,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph("Tél : 06 87 54 52 29 ").setFontSize(10)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("Fax : 03 27 41 52 47").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Mail : cothermie@gmail.com").setFontSize(10)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));

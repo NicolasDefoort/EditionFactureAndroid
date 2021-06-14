@@ -2,6 +2,7 @@ package com.example.editionfactureandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -23,11 +24,15 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         public static final String COL_8 = "Objet";
         public static final String COL_9 = "TodoNom";
         public static final String COL_10 = "TodoAdresse";
-        public static final String COL_11 = "Désignation";
-        public static final String COL_12 = "Quantité";
+        public static final String COL_11 = "Designation";
+        public static final String COL_12 = "Quantite";
         public static final String COL_13 = "PuHt";
         public static final String COL_14 = "Tva";
-        public static final String COL_15 = "NuméroAffaire";
+        public static final String COL_15 = "NumAffaire";
+        public static final String COL_16 = "Date";
+        public static final String COL_17 = "Total";
+
+
 
     public DatabaseHelper( Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -50,7 +55,9 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 "QUANTITE TEXT, "+
                 "PUHT TEXT, "+
                 "TVA TEXT, "+
-                "NUMAFFAIRE TEXT"+
+                "NUMAFFAIRE TEXT,"+
+                "DATE TEXT,"+
+                "TOTAL TEXT"+
                 ")" );
     }
 
@@ -61,7 +68,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertData(String firstname, String lastname,String adresse, String ville,String codePostal,String genre,String objet,String todoNom ,String todoAdresse, String puht, String tva){
+    public boolean insertData(String firstname, String lastname,String adresse, String ville,String codePostal,String genre,String objet,String todoNom ,String todoAdresse, String designation,String quantite, String puht, String tva, String numAffaire,String date,String total){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,firstname);
@@ -73,12 +80,13 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         contentValues.put(COL_8,objet);
         contentValues.put(COL_9,todoNom);
         contentValues.put(COL_10,todoAdresse);
+        contentValues.put(COL_11,designation);
+        contentValues.put(COL_12,quantite);
         contentValues.put(COL_13,puht);
         contentValues.put(COL_14,tva);
-
-
-
-
+        contentValues.put(COL_15,numAffaire);
+        contentValues.put(COL_16,date);
+        contentValues.put(COL_17,total);
 
         long result = db.insert(TABLE_NAME,null,contentValues);
         if (result==-1){
@@ -88,5 +96,12 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         else{
             return true;
         }
+    }
+
+
+    public Cursor getAllData(){
+        SQLiteDatabase db =this.getWritableDatabase();
+        Cursor res =db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
     }
 }

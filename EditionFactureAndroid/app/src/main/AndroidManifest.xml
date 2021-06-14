@@ -16,6 +16,7 @@
         android:theme="@style/Theme.EditionFactureAndroid">
 
         <activity android:name=".TempoFacture" />
+        <activity android:name=".DevisList" />
         <activity android:name=".TempoDevis" />
         <activity android:name=".CreateFacture" />
         <activity android:name=".CreateDevis" />

@@ -24,6 +24,10 @@ public class TempoFacture extends AppCompatActivity implements View.OnClickListe
         numeroaffaire = findViewById(R.id.editTextnumeroaffaireTempoFacture);
         numerofacture = findViewById(R.id.editTextNumeroFactureTempoFacture);
 
+        Intent intent=getIntent();
+
+        numeroaffaire.setText(intent.getStringExtra("numaffaire"));
+
     }
 
     @Override
@@ -53,6 +57,16 @@ public class TempoFacture extends AppCompatActivity implements View.OnClickListe
         intent3.putExtra("ville",ville);
         intent3.putExtra("todoNom",todoNom);
         intent3.putExtra("numerofacture",nfacture);
+
+
+        Intent intent=getIntent();
+
+        intent3.putExtra("objet",intent.getStringExtra("objet"));
+        intent3.putExtra("designation",intent.getStringExtra("designation"));
+        intent3.putExtra("puht",intent.getStringExtra("puht"));
+        intent3.putExtra("quantite",intent.getStringExtra("quantite"));
+        intent3.putExtra("tva",intent.getStringExtra("tva"));
+
 
 
 

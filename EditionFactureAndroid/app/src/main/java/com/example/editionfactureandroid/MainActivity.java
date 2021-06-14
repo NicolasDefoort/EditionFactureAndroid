@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v.getId()== R.id.button6){
+            startActivity(new Intent(this, DevisList.class));
 
         }
 
