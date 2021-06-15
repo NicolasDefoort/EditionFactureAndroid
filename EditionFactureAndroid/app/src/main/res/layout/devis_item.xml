@@ -2,8 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="#FFFFFF"
-    android:foregroundTint="#5C403E"
     android:padding="6dip">
 
     <TextView
@@ -13,8 +11,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        android:text="TextView" />
+        android:layout_marginTop="0dp" />
 
     <TextView
         android:id="@+id/textViewFirstname"
@@ -23,8 +20,7 @@
         android:layout_below="@+id/textViewLastname"
         android:layout_alignParentStart="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        android:text="TextView" />
+        android:layout_marginTop="0dp" />
 
     <TextView
         android:id="@+id/textViewTotal"
@@ -34,7 +30,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="5dp"
-        android:text="TextView"
         android:textAlignment="textEnd" />
 
     <TextView
@@ -45,7 +40,19 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:text="TextView"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewFirstname"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:text="________________________________________________"
         android:textAlignment="center" />
 
 </RelativeLayout>
