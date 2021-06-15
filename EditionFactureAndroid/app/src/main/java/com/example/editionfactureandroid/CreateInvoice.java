@@ -25,6 +25,10 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
 
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         radioGroup.clearCheck();
+        radioGroup.check(R.id.radioButtonMr);
+
+        selectedRadio=(RadioButton)findViewById(R.id.radioButtonMr);
+
         radioGroup.setOnCheckedChangeListener(this);
 
         lastname = findViewById(R.id.editTextLastName);

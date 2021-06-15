@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.RadioAccessSpecifier;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,13 +50,14 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 
 public class SecondPartFactureEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     private float totalTVA;
     private RadioGroup radioGroup2;
-    private EditText designation,quantity, puHT,object,paiementPose,acompte,solde;
+    private EditText designation,quantity, puHT,object,paiementPose,acompte,solde,datefin;
     private RadioButton selectedRadio2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +70,72 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         paiementPose=findViewById(R.id.editTextPaiementPose);
         acompte=findViewById(R.id.editTextAccompte);
         solde = findViewById(R.id.editTextSolde);
+        datefin = findViewById(R.id.editTextDateTravaux);
 
 
+        datefin.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+            private String ddmmyyyy = "DDMMYYYY";
+            private Calendar cal = Calendar.getInstance();
+
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current)) {
+                    String clean = s.toString().replaceAll("[^\\d.]", "");
+                    String cleanC = current.replaceAll("[^\\d.]", "");
+
+                    int cl = clean.length();
+                    int sel = cl;
+                    for (int i = 2; i <= cl && i < 6; i += 2) {
+                        sel++;
+                    }
+                    //Fix for pressing delete next to a forward slash
+                    if (clean.equals(cleanC)) sel--;
+
+                    if (clean.length() < 8){
+                        clean = clean + ddmmyyyy.substring(clean.length());
+                    }else{
+                        //This part makes sure that when we finish entering numbers
+                        //the date is correct, fixing it otherwise
+                        int day  = Integer.parseInt(clean.substring(0,2));
+                        int mon  = Integer.parseInt(clean.substring(2,4));
+                        int year = Integer.parseInt(clean.substring(4,8));
+
+                        if(mon > 12) mon = 12;
+                        cal.set(Calendar.MONTH, mon-1);
+
+                        year = (year<1900)?1900:(year>2100)?2100:year;
+                        cal.set(Calendar.YEAR, year);
+                        // ^ first set year for the line below to work correctly
+                        //with leap years - otherwise, date e.g. 29/02/2012
+                        //would be automatically corrected to 28/02/2012
+
+                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
+                        clean = String.format("%02d%02d%02d",day, mon, year);
+                    }
+
+                    clean = String.format("%s/%s/%s", clean.substring(0, 2),
+                            clean.substring(2, 4),
+                            clean.substring(4, 8));
+
+                    sel = sel < 0 ? 0 : sel;
+                    current = clean;
+                    datefin.setText(current);
+                    datefin.setSelection(sel < current.length() ? sel : current.length());
+
+
+
+                }
+            }
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         Button createFacture = findViewById(R.id.buttonCreateFacture);
         createFacture.setOnClickListener(this);
@@ -168,6 +235,17 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         String quantite = quantity.getText().toString();
         String puht = puHT.getText().toString();
         String tva = (String) selectedRadio2.getText();
+
+
+        Boolean tvaReduite;
+        if (tva.equals("5.5 %")||tva.equals("10 %")){
+            tvaReduite=true;
+        }
+        else{
+            tvaReduite=false;
+        }
+
+        String dateFin=datefin.getText().toString();
         String paiement_pose=paiementPose.getText().toString();
         String soldee=solde.getText().toString();
         String accompte=acompte.getText().toString();
@@ -275,15 +353,26 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,9).add(new Paragraph("Tél : 06 87 54 52 29 ").setFontSize(10)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,9).add(new Paragraph("Mail : cothermie@gmail.com").setFontSize(10)).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(4,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(2,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("Devis à l'attention de :").setBold()).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+upperCaseFirst(nom)+whiteSpace+ upperCaseFirst(prenom))).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,5).add(new Paragraph("Date de fin des travaux : "+ dateFin)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(adresse)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,9).add(new Paragraph(("NOM DU CLIENT :  ")+(todoNom)).setFontSize(11)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
+        if (tvaReduite==true){
+            table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse ).setFontSize(11)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,9).add(new Paragraph("(immeuble achevé depuis plus de deux ans)").setFontSize(9)).setBorder(Border.NO_BORDER));
+        }
+        else{
+            table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
+
+        }
+
+
         table.addCell(new Cell(1,9).add(new Paragraph("OBJET : "+objet).setFontSize(11)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(2,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));

@@ -29,6 +29,10 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
 
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         radioGroup.clearCheck();
+        radioGroup.check(R.id.radioButtonMr);
+
+        selectedRadio=(RadioButton)findViewById(R.id.radioButtonMr);
+
         radioGroup.setOnCheckedChangeListener(this);
 
 
@@ -45,6 +49,7 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
 
         sameName=findViewById(R.id.checkBoxName);
         sameAddress=findViewById(R.id.checkBoxAddress);
+
 
 
 

@@ -64,6 +64,10 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA);
         radioGroup2.clearCheck();
+        radioGroup2.check(R.id.radioButton155);
+
+        selectedRadio2=(RadioButton)findViewById(R.id.radioButton155);
+
         radioGroup2.setOnCheckedChangeListener(this);
 
 
@@ -134,6 +138,14 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         String quantite = quantity.getText().toString();
         String puht = puHT.getText().toString();
         String tva = (String) selectedRadio2.getText();
+
+        Boolean tvaReduite;
+        if (tva.equals("5.5 %")||tva.equals("10 %")){
+            tvaReduite=true;
+        }
+        else{
+            tvaReduite=false;
+        }
 
         int quantiteInt = new Integer(quantite).intValue();
         float puhtfloat = new Float(puht).floatValue();
@@ -276,7 +288,15 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
         System.out.println("/////////////////////////////");
         table.addCell(new Cell(1,9).add(new Paragraph(("NOM DU CLIENT :  ")+(todoNom)).setFontSize(11)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
+
+        if (tvaReduite==true){
+            table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse ).setFontSize(11)).setBorder(Border.NO_BORDER));
+            table.addCell(new Cell(1,9).add(new Paragraph("(immeuble achevé depuis plus de deux ans)").setFontSize(9)).setBorder(Border.NO_BORDER));
+        }
+        else{
+            table.addCell(new Cell(1,9).add(new Paragraph("ADRESSE DES TRAVAUX : " + todoAdresse).setFontSize(11)).setBorder(Border.NO_BORDER));
+
+        }
         table.addCell(new Cell(1,9).add(new Paragraph("OBJET : "+objet).setFontSize(11)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(2,9).add(new Paragraph("")).setBorder(Border.NO_BORDER));
