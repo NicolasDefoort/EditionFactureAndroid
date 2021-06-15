@@ -402,7 +402,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         document.close();
 
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
-        System.out.println(pdPath);
+        startActivity(new Intent(this, MainActivity.class));
 
 
     }

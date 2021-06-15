@@ -11,10 +11,8 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.SQLOutput;
+public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener{
 
-
-public class CreateFacture extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     private CheckBox sameName,sameAddress;
     private EditText lastname, firstname, address,postalCode, city,todoAddress,todoName;
@@ -43,21 +41,6 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         sameName=findViewById(R.id.checkBoxName);
         sameAddress=findViewById(R.id.checkBoxAddress);
 
-        Intent intent =getIntent();
-        lastname.setText(intent.getStringExtra("nom"));
-        firstname.setText(intent.getStringExtra("prenom"));
-        address.setText(intent.getStringExtra("adresse"));
-        postalCode.setText(intent.getStringExtra("code postal"));
-        city.setText(intent.getStringExtra("ville"));
-        todoAddress.setText(intent.getStringExtra("todoAdresse"));
-        todoName.setText(intent.getStringExtra("todoNom"));
-
-
-        if(intent.getStringExtra("genre").equals("MONSIEUR")){
-        radioGroup.check(R.id.radioButtonMr);}
-        if(intent.getStringExtra("genre").equals("Madame".toUpperCase())){
-            radioGroup.check(R.id.radioButtonMme);}
-
     }
 
     @Override
@@ -80,29 +63,23 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
 
         String whiteSpace =" ";
 
-        Intent intent1 =new Intent(this, TempoFacture.class);
+        Intent intent =new Intent(this, TempoInvoice.class);
 
-        intent1.putExtra("prenom",prenom);
-        intent1.putExtra("nom",nom);
-        intent1.putExtra("genre",genre);
-        intent1.putExtra("adresse",adresse);
-        intent1.putExtra("code postal",codePostal);
-        intent1.putExtra("ville",ville);
-        intent1.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
-        intent1.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
+        intent.putExtra("prenom",prenom);
+        intent.putExtra("nom",nom);
+        intent.putExtra("genre",genre);
+        intent.putExtra("adresse",adresse);
+        intent.putExtra("code postal",codePostal);
+        intent.putExtra("ville",ville);
+        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
+        intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
-        Intent intent =getIntent();
 
-        intent1.putExtra("objet",intent.getStringExtra("objet"));
-        intent1.putExtra("designation",intent.getStringExtra("designation"));
-        intent1.putExtra("puht",intent.getStringExtra("puht"));
-        intent1.putExtra("quantite",intent.getStringExtra("quantite"));
-        intent1.putExtra("numaffaire",intent.getStringExtra("numaffaire"));
-        intent1.putExtra("tva",intent.getStringExtra("tva"));
+
 
 
         if(v.getId()== R.id.buttonNextDevis){
-            startActivity(intent1);
+            startActivity(intent);
         }
 
     }

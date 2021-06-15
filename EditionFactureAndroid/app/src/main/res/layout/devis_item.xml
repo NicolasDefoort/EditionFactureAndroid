@@ -1,74 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#FFFFFF"
+    android:foregroundTint="#5C403E"
+    android:padding="6dip">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="262dp"
-        android:layout_height="86dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <TextView
+        android:id="@+id/textViewLastname"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:text="TextView" />
 
-        <LinearLayout
-            android:layout_width="133dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewFirstname"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textViewLastname"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:text="TextView" />
 
-            <TextView
-                android:id="@+id/textViewFirstname"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textViewTotal"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDate"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="5dp"
+        android:text="TextView"
+        android:textAlignment="textEnd" />
 
-            <TextView
-                android:id="@+id/textViewLastname"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:text="TextView"
+        android:textAlignment="center" />
 
-        <LinearLayout
-            android:layout_width="185dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewTotal"
-                android:layout_width="115dp"
-                android:layout_height="51dp"
-                android:text="TextView"
-                android:textAlignment="textEnd" />
-
-            <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="124dp"
-                android:layout_height="45dp"
-                android:text="TextView"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonButton"
-        android:layout_width="43dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#FDA000"
-        android:foreground="@drawable/next"
-        android:foregroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

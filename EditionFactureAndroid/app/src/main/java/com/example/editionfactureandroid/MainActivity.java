@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v.getId()== R.id.button2){
-            startActivity(new Intent(this, CreateFacture.class));
+            startActivity(new Intent(this, CreateInvoice.class));
         }
         if(v.getId()== R.id.button3){
 
