@@ -209,6 +209,7 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         df.setDecimalSeparatorAlwaysShown ( true ) ;
 
         DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter1 =DateTimeFormatter.ofPattern("ddMMyyyy");
 
         Intent intent =getIntent();
         String nom = intent.getStringExtra("nom");
@@ -271,12 +272,8 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
         float TOTAL = totalTVA+totalHt;
 
-
-
-
-
         String pdPath = Environment.getExternalStorageDirectory().toString();
-        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+".pdf");
+        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf");
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -284,7 +281,7 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         Document document = new Document(pdfDocument);
 
         DeviceRgb blueFont = new DeviceRgb(23, 102, 165);
-        DeviceRgb grayBg = new DeviceRgb(219, 220, 221  );
+        DeviceRgb grayBg = new DeviceRgb(219, 220, 221 );
 
         Drawable d1= getDrawable(R.drawable.image1);
         Bitmap bitmap1=((BitmapDrawable)d1).getBitmap();

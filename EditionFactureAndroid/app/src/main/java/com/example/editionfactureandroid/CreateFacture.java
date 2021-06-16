@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ import java.sql.SQLOutput;
 
 public class CreateFacture extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
+    DatabaseHelper myDb;
     private CheckBox sameName,sameAddress;
     private EditText lastname, firstname, address,postalCode, city,todoAddress,todoName;
     private RadioGroup radioGroup;
@@ -23,11 +25,16 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
-        setContentView(R.layout.create_devis);
+        setContentView(R.layout.create_facture_by_id);
+
+
+        myDb = new DatabaseHelper(this);
 
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         radioGroup.clearCheck();
         radioGroup.setOnCheckedChangeListener(this);
+
+
 
         lastname = findViewById(R.id.editTextLastName);
         firstname =findViewById(R.id.editTextFirstName);
@@ -36,6 +43,9 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         city= findViewById(R.id.editTextCity);
         todoAddress=findViewById(R.id.editTextToDoAddress);
         todoName =findViewById(R.id.editTextToDoName);
+        Button delete = findViewById(R.id.buttonDeleteDevis);
+
+        delete.setOnClickListener(this);
 
         Button nextButton = findViewById(R.id.buttonNextDevis);
         nextButton.setOnClickListener(this);
@@ -51,6 +61,7 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         city.setText(intent.getStringExtra("ville"));
         todoAddress.setText(intent.getStringExtra("todoAdresse"));
         todoName.setText(intent.getStringExtra("todoNom"));
+
 
 
         if(intent.getStringExtra("genre").equals("MONSIEUR")){
@@ -70,6 +81,7 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
 
     @Override
     public void onClick(View v) {
+
 
         String prenom = firstname.getText().toString();
         String nom = lastname.getText().toString();
@@ -92,7 +104,8 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         intent1.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         Intent intent =getIntent();
-
+        String test=intent.getStringExtra("id");
+        intent1.putExtra("id",test);
         intent1.putExtra("objet",intent.getStringExtra("objet"));
         intent1.putExtra("designation",intent.getStringExtra("designation"));
         intent1.putExtra("puht",intent.getStringExtra("puht"));
@@ -105,6 +118,16 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
             startActivity(intent1);
         }
 
+        if(v.getId()== R.id.buttonDeleteDevis){
+            Integer deletedRows = myDb.deleteData(test);
+            if(deletedRows > 0 ){
+                Toast.makeText(this,"Devis deleted", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(this,"Failed to delete devis", Toast.LENGTH_LONG).show();
+            }
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
     public String todoAdresse(String adresse){
         if (sameAddress.isChecked()){

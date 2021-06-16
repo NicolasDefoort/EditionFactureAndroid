@@ -182,6 +182,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
         String whiteSpace =" ";
         DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter1 =DateTimeFormatter.ofPattern("ddMMyyyy");
 
 
          /*File folder = new File(Environment.getExternalStorageDirectory() + "/Cothermie"+"/Clients"+upperCaseFirst(nom)+upperCaseFirst(prenom));
@@ -197,7 +198,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
-        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Devis",upperCaseFirst(nom)+upperCaseFirst(prenom)+".pdf");
+        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Devis",upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf");
 
         OutputStream outputStream= new FileOutputStream(file);
 

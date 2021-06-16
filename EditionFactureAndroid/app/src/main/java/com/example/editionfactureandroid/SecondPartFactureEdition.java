@@ -55,6 +55,7 @@ import java.util.Calendar;
 
 public class SecondPartFactureEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
+    DatabaseHelper myDb;
     private float totalTVA;
     private RadioGroup radioGroup2;
     private EditText designation,quantity, puHT,object,paiementPose,acompte,solde,datefin;
@@ -63,6 +64,8 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.second_part_facture_edition);
+
+        myDb = new DatabaseHelper(this);
         designation = findViewById(R.id.editTextDesignation2);
         quantity = findViewById(R.id.editTextQuantity2);
         puHT = findViewById(R.id.editTextPUHT2);
@@ -217,6 +220,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         df.setDecimalSeparatorAlwaysShown ( true ) ;
 
         DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter1 =DateTimeFormatter.ofPattern("ddMMyyyy");
 
         Intent intent =getIntent();
         String nom = intent.getStringExtra("nom");
@@ -229,6 +233,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         String todoNom = intent.getStringExtra("todoNom");
         String nfacture = intent.getStringExtra("numerofacture");
         String naffaire = intent.getStringExtra("numeroaffaire");
+        String id = intent.getStringExtra("id");
 
         String designat = designation.getText().toString();
         String objet = object.getText().toString();
@@ -285,7 +290,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
-        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+".pdf");
+        File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf");
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -491,8 +496,21 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         document.close();
 
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
+
+        Integer deletedRows = myDb.deleteData(id);
+        if(deletedRows > 0 ){
+            Toast.makeText(this,"Devis deleted", Toast.LENGTH_LONG).show();
+
+        }
+        else{
+            Toast.makeText(this,"Failed to delete devis", Toast.LENGTH_LONG).show();
+
+        }
+
         startActivity(new Intent(this, MainActivity.class));
 
 
     }
+
+
 }

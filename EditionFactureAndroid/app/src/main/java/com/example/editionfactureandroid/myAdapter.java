@@ -50,12 +50,12 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder>{
                 Intent i = new Intent(context, CreateFacture.class);
 
 
+                String s=String.valueOf(dataholder.get(position).getId());
 
+                i.putExtra("id",s);
                 i.putExtra("prenom",dataholder.get(position).getFirstname());
                 i.putExtra("nom",dataholder.get(position).getLastname());
                 i.putExtra("genre",dataholder.get(position).getGenre());
-                System.out.println("-------------------------------");
-                System.out.println(dataholder.get(position).getGenre());
                 i.putExtra("adresse",dataholder.get(position).getAdresse());
                 i.putExtra("code postal",dataholder.get(position).getCodePostal());
                 i.putExtra("ville",dataholder.get(position).getVille());

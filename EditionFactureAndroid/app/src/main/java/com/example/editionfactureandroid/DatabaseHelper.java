@@ -2,6 +2,7 @@ package com.example.editionfactureandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -104,5 +105,12 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         Cursor res =db.rawQuery("SELECT * FROM " +
                   TABLE_NAME+" ORDER BY ID DESC", null);
         return res;
+    }
+
+
+
+    public Integer deleteData(String id){
+        SQLiteDatabase db =this.getWritableDatabase();
+        return db.delete(TABLE_NAME,"ID = ?",new String[]{id});
     }
 }

@@ -66,7 +66,7 @@ public class TempoFacture extends AppCompatActivity implements View.OnClickListe
         intent3.putExtra("puht",intent.getStringExtra("puht"));
         intent3.putExtra("quantite",intent.getStringExtra("quantite"));
         intent3.putExtra("tva",intent.getStringExtra("tva"));
-
+        intent3.putExtra("id",intent.getStringExtra("id"));
 
 
 
