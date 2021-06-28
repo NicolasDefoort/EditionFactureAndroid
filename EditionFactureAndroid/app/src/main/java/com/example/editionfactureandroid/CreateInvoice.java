@@ -18,6 +18,8 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
     private EditText lastname, firstname, address,postalCode, city,todoAddress,todoName;
     private RadioGroup radioGroup;
     private RadioButton selectedRadio;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
@@ -52,7 +54,6 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
         selectedRadio= (RadioButton)group.findViewById(checkedId);
         //String r1=(String) selectedRadio.getText();
         //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -77,10 +78,6 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
         intent.putExtra("ville",ville);
         intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
-
-
-
-
 
         if(v.getId()== R.id.buttonNextDevis){
             startActivity(intent);

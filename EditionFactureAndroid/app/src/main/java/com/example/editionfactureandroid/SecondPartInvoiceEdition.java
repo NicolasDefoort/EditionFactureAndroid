@@ -1,9 +1,12 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.telephony.RadioAccessSpecifier;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +30,8 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -51,6 +56,9 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class SecondPartInvoiceEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
@@ -150,13 +158,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
 
         radioGroup2.setOnCheckedChangeListener(this);
-
-
-
-
-
-
-
 
     }
 
@@ -274,6 +275,7 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
         File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf");
+        String path = pdPath+"/"+"Cothermie"+"/"+"Facture"+upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf";
         OutputStream outputStream= new FileOutputStream(file);
 
         PdfWriter writer = new PdfWriter(file);
@@ -398,12 +400,14 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
             table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+accompte)));
 
         }
+
         if (!paiement_pose.matches("")){
             table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
             table.addCell(new Cell(1,2).add(new Paragraph("Paiement à la pose").setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
             table.addCell(new Cell(1,2).add(new Paragraph("€"+whiteSpace+whiteSpace+paiement_pose)));
 
         }
+
         if (!soldee.matches("")){
             table.addCell(new Cell(1,4).add(new Paragraph("")).setBorder(Border.NO_BORDER));
             table.addCell(new Cell(1,3).add(new Paragraph("Solde à la fin des travaux").setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
@@ -412,7 +416,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         }
 
         if ((!soldee.matches(""))||(!paiement_pose.matches(""))||(!accompte.matches(""))){
-
 
             float paiementPoseFloat, soldeFloat, acompteFloat ;
             if (soldee.matches("")){
@@ -442,10 +445,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
         }
 
-
-
-
-
         table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
@@ -460,9 +459,7 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,2).add(new Paragraph("BIC : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("CEPAFRPP627")).setBorder(Border.NO_BORDER));
 
-
         table.addCell(new Cell(4,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
-
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
 
@@ -480,9 +477,45 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
         document.add(table);
         document.close();
+        String subject = designat + " " + nom.toUpperCase() + " " +prenom.toUpperCase();
 
+        ActivityCompat.requestPermissions(this,new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        String stringFile = Environment.getExternalStorageDirectory().getPath()+ File.separator+"Cothermie"+File.separator+"Facture"+File.separator+upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf";
+
+        buttonShareFile(stringFile, subject);
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this, MainActivity.class));
+
+
+
+
+
+
 
     }
+    public void buttonShareFile(String stringFile, String subject){
+
+        File file = new File (stringFile);
+        if (!file.exists()){
+            Toast.makeText(this,"File doesn't exists",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intentShare = new Intent(Intent.ACTION_SEND);
+        intentShare.setType("application/pdf");
+        intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
+        intentShare.putExtra(Intent.EXTRA_SUBJECT,subject);
+        intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+
+        startActivity(Intent.createChooser(intentShare,"Share the file ..."));
+
+
+    }
+
+
+
+
+
 }

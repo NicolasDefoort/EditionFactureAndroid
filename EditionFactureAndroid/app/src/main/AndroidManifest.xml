@@ -3,23 +3,25 @@
     package="com.example.editionfactureandroid">
 
 
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:requestLegacyExternalStorage="true"
+
         android:allowBackup="true"
         android:icon="@mipmap/icone_cothermie"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EditionFactureAndroid">
+
 
         <activity android:name=".TempoFacture" />
         <activity android:name=".TempoInvoice" />
         <activity android:name=".CreateInvoice" />
         <activity android:name=".SecondPartInvoiceEdition" />
-
         <activity android:name=".DevisList" />
         <activity android:name=".TempoDevis" />
         <activity android:name=".CreateFacture" />
@@ -33,11 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
-
-
-
 
 </manifest>

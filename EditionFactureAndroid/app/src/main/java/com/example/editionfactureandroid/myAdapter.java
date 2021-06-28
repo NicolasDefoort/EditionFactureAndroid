@@ -28,14 +28,14 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder>{
 
     @NonNull
     @Override
-    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {   // Appeler dès qu'un élément est ajouter au recyclerView
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.devis_item,parent, false);
         return  new myviewholder(view);
     }
 
     Context context;
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull myviewholder holder, int position) {          // Take the view returned by onCrezteViewholder and fill the iinformation of the rows
         holder.firstname.setText(dataholder.get(position).getFirstname());
         holder.lastname.setText(dataholder.get(position).getLastname());
         holder.date.setText(dataholder.get(position).getDate());
@@ -48,7 +48,6 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder>{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, CreateFacture.class);
-
 
                 String s=String.valueOf(dataholder.get(position).getId());
 
@@ -68,14 +67,9 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder>{
                 i.putExtra("numaffaire",dataholder.get(position).getNumaffaire());
                 i.putExtra("tva",dataholder.get(position).getTva());
 
-
                 context.startActivity(i);
-
-
-
             }
         });
-
     }
 
 
@@ -98,17 +92,6 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder>{
             date=itemView.findViewById(R.id.textViewDate);
             total=itemView.findViewById(R.id.textViewTotal);
 
-
-
-
-
-
         }
-
-
-
-
-
     }
-
 }

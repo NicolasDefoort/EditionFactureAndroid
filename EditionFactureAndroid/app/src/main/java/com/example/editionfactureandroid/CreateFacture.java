@@ -76,7 +76,6 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         selectedRadio= (RadioButton)group.findViewById(checkedId);
         //String r1=(String) selectedRadio.getText();
         //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
-
     }
 
     @Override

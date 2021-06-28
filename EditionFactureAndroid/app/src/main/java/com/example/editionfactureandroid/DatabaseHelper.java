@@ -35,6 +35,11 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
 
 
+
+
+
+
+
     public DatabaseHelper( Context context) {
         super(context, DATABASE_NAME, null, 1);
 
@@ -60,6 +65,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 "DATE TEXT,"+
                 "TOTAL TEXT"+
                 ")" );
+
+
     }
 
     @Override
@@ -92,7 +99,6 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME,null,contentValues);
         if (result==-1){
             return false;
-
         }
         else{
             return true;

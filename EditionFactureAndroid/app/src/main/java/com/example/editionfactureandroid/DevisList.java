@@ -29,7 +29,6 @@ public class DevisList extends AppCompatActivity {
 
         Cursor cursor = new DatabaseHelper(this).getAllData();
 
-
         while(cursor.moveToNext()){
             model obj = new model(
                     cursor.getInt(0),

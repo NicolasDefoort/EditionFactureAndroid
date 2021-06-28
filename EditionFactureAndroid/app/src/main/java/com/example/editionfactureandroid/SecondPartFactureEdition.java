@@ -127,8 +127,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
                     datefin.setText(current);
                     datefin.setSelection(sel < current.length() ? sel : current.length());
 
-
-
                 }
             }
 
@@ -296,7 +294,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         PdfWriter writer = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(writer);
         Document document = new Document(pdfDocument);
-
         DeviceRgb blueFont = new DeviceRgb(23, 102, 165);
         DeviceRgb grayBg = new DeviceRgb(219, 220, 221  );
 

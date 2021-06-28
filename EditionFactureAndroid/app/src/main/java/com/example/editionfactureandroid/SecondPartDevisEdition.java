@@ -45,6 +45,7 @@ import java.time.format.DateTimeFormatter;
 public class SecondPartDevisEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     DatabaseHelper myDb;
+    DatabaseHelper1 db1;
     private float totalTVA;
     private RadioGroup radioGroup2;
     private EditText designation,quantity, puHT,object;
@@ -52,6 +53,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myDb= new DatabaseHelper( this);
+        db1= new DatabaseHelper1( this);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.second_part_devis_edition);
         designation = findViewById(R.id.editTextDesignation);
@@ -380,7 +382,23 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
             Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
         }
 
-        Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
+        boolean isInserted1 = db1.insertData("dd","dd");
+        if(isInserted1=true){
+            Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+        }
+
+
+        boolean isUpdate = db1.updateData("1","1",LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+        if(isUpdate=true){
+            Toast.makeText(SecondPartDevisEdition.this,"Data1 Inserted",Toast.LENGTH_LONG).show();
+        }
+
+        else{
+            Toast.makeText(SecondPartDevisEdition.this,"Data1 not Inserted",Toast.LENGTH_LONG).show();
+        }
         startActivity(new Intent(this, MainActivity.class));
 
 

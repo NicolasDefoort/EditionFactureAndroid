@@ -1,28 +1,35 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TempoDevis extends AppCompatActivity implements View.OnClickListener {
 
 
     EditText numeroaffaire;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.tempo_devis);
 
-
         Button next = findViewById(R.id.buttonNextTempoDevis);
         next.setOnClickListener(this);
 
-         numeroaffaire = findViewById(R.id.editTextAffaireNumberTempoDevis);
+        numeroaffaire = findViewById(R.id.editTextAffaireNumberTempoDevis);
 
+        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("yyMMdd");
+        numeroaffaire.setText(LocalDate.now().format(dateFormatter));
 
     }
 
@@ -41,7 +48,6 @@ public class TempoDevis extends AppCompatActivity implements View.OnClickListene
         String ville = intent.getStringExtra("ville");
         String todoNom = intent.getStringExtra("todoNom");
 
-
         intent1.putExtra("numeroaffaire",naffaire);
         intent1.putExtra("nom",nom);
         intent1.putExtra("prenom",prenom);
@@ -51,8 +57,6 @@ public class TempoDevis extends AppCompatActivity implements View.OnClickListene
         intent1.putExtra("code postal",code_postal);
         intent1.putExtra("ville",ville);
         intent1.putExtra("todoNom",todoNom);
-
-
 
         startActivity(intent1);
     }

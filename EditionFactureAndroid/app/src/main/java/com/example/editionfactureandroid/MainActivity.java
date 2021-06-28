@@ -28,12 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button1.setOnClickListener(this);
         Button button2 = findViewById(R.id.button2);
         button2.setOnClickListener(this);
-        Button button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(this);
-        Button button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(this);
-        Button button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(this);
+
         Button button6 = findViewById(R.id.button6);
         button6.setOnClickListener(this);
 
@@ -102,24 +97,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v.getId()== R.id.button1){
 
-
-
-
             startActivity(new Intent(this, CreateDevis.class));
 
         }
         if(v.getId()== R.id.button2){
             startActivity(new Intent(this, CreateInvoice.class));
         }
-        if(v.getId()== R.id.button3){
 
-        }
-        if(v.getId()== R.id.button4){
-
-        }
-        if(v.getId()== R.id.button5){
-
-        }
         if(v.getId()== R.id.button6){
             startActivity(new Intent(this, DevisList.class));
 
