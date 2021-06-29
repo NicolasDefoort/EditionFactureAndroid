@@ -488,12 +488,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         buttonShareFile(stringFile, subject);
         Toast.makeText(this,"Pdf created", Toast.LENGTH_LONG).show();
 
-
-
-
-
-
-
     }
     public void buttonShareFile(String stringFile, String subject){
 
@@ -510,8 +504,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
                 new String[] { "nicolas.defoort@isen.yncrea.fr"});
 
         startActivity(Intent.createChooser(intentShare,"Share the file ..."));
-
-
     }
 
 

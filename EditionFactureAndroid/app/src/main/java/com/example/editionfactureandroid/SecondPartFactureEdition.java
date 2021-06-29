@@ -248,6 +248,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
             tvaReduite=false;
         }
 
+
         String dateFin=datefin.getText().toString();
         String paiement_pose=paiementPose.getText().toString();
         String soldee=solde.getText().toString();
@@ -262,8 +263,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         int radioButtonID = radioGroup2.getCheckedRadioButtonId();
         System.out.println(radioButtonID);
-
-
 
 
         if (radioButtonID==R.id.radioButton155){
@@ -282,10 +281,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         }
 
         float TOTAL = totalTVA+totalHt;
-
-
-
-
 
         String pdPath = Environment.getExternalStorageDirectory().toString();
         File file = new File(pdPath+"/"+"Cothermie"+"/"+"Facture",upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf");

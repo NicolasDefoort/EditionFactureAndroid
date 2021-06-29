@@ -21,14 +21,6 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
     public static final String COL_2 = "NUMERO";
     public static final String COL_3 = "JOUR";
 
-
-
-
-
-
-
-
-
     public DatabaseHelper1( Context context) {
         super(context, DATABASE_NAME1, null, 1);
 

@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button6 = findViewById(R.id.button6);
         button6.setOnClickListener(this);
 
+        Button button7 = findViewById(R.id.button7);
+        button7.setOnClickListener(this);
+
 
 
         File folder = new File(Environment.getExternalStorageDirectory() + "/Cothermie");
@@ -79,8 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!folder3.exists()) {
 
             success3 = folder3.mkdir();
-            Toast.makeText(this, "Directory Clients created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Directory Fichier created", Toast.LENGTH_SHORT).show();
         }
+
         if (!success3) {
             Toast.makeText(this, "Failed - Error", Toast.LENGTH_SHORT).show();
 
@@ -106,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId()== R.id.button6){
             startActivity(new Intent(this, DevisList.class));
+        }
+
+        if(v.getId()== R.id.button7){
+            startActivity(new Intent(this, LiquideAuBlack.class));
 
         }
 

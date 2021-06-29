@@ -19,6 +19,7 @@
 
 
         <activity android:name=".TempoFacture" />
+        <activity android:name=".LiquideAuBlack" />
         <activity android:name=".TempoInvoice" />
         <activity android:name=".CreateInvoice" />
         <activity android:name=".SecondPartInvoiceEdition" />
