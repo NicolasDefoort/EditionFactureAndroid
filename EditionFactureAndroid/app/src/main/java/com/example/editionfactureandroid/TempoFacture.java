@@ -59,6 +59,7 @@ public class TempoFacture extends AppCompatActivity implements View.OnClickListe
         String ville = intent2.getStringExtra("ville");
         String todoNom = intent2.getStringExtra("todoNom");
 
+
         intent3.putExtra("numeroaffaire",naffaire);
         intent3.putExtra("nom",nom);
         intent3.putExtra("prenom",prenom);

@@ -16,7 +16,7 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
 
 
     public static final String DATABASE_NAME1 = "database1.db";
-    public static final String TABLE_NAME = "table_test";
+    public static final String TABLE_NAME = "tablenombre";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NUMERO";
     public static final String COL_3 = "JOUR";
@@ -74,7 +74,7 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
         return db.delete(TABLE_NAME,"ID = ?",new String[]{id});
     }
 
-    public boolean updateData(String id,String numero,String jour){
+    public boolean updateData(String id,int numero,String jour){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues =new ContentValues();
         contentValues.put(COL_1,id);

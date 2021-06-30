@@ -114,7 +114,20 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
 
 
         if(v.getId()== R.id.buttonNextDevis){
-            startActivity(intent1);
+            if(genre.isEmpty()){
+                Toast.makeText(this,"RadioButton obligatoire", Toast.LENGTH_LONG).show();
+            }
+            else if (nom.isEmpty()){
+                lastname.setError("Champ obligatoire");
+            }
+            else if (prenom.isEmpty()){
+                firstname.setError("Champ obligatoire");
+            }
+            else {
+                startActivity(intent1);
+
+            }
+
         }
 
         if(v.getId()== R.id.buttonDeleteDevis){

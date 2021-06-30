@@ -64,9 +64,10 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class SecondPartInvoiceEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     private float totalTVA;
-    private RadioGroup radioGroup2;
+    private RadioGroup radioGroup2, radioGroup3;
     private EditText designation,quantity, puHT,object,paiementPose,acompte,solde,datefin;
     private RadioButton selectedRadio2;
+    private String selectedRadio3;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
@@ -152,12 +153,18 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
         radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA2);
         radioGroup2.clearCheck();
-
         radioGroup2.check(R.id.radioButton155);
         selectedRadio2=(RadioButton)findViewById(R.id.radioButton155);
-
-
         radioGroup2.setOnCheckedChangeListener(this);
+
+        radioGroup3 = (RadioGroup)findViewById(R.id.RadioGroupReglement);
+        radioGroup3.clearCheck();
+        radioGroup3.check(R.id.radioButtonVirement);
+        selectedRadio3="Virement";
+        radioGroup3.setOnCheckedChangeListener(this);
+
+
+
 
     }
 
@@ -171,6 +178,7 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         selectedRadio2= (RadioButton)group.findViewById(checkedId);
 
+        selectedRadio3 = ((RadioButton) findViewById(radioGroup3.getCheckedRadioButtonId())).getText().toString();
 
 
         //String r1=(String) selectedRadio2.getText();
@@ -202,7 +210,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createPDF() throws FileNotFoundException{
-
 
         DecimalFormat df = new DecimalFormat ( ) ;
         df.setMaximumFractionDigits ( 2 ) ;
@@ -251,8 +258,6 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         String stringTotalHt=Float.toString(totalHt);
 
         int radioButtonID = radioGroup2.getCheckedRadioButtonId();
-        System.out.println(radioButtonID);
-
 
 
 
@@ -450,6 +455,10 @@ public class SecondPartInvoiceEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("Date d'échéance :").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().plusDays(7).format(dateFormatter))).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("Mode de règlement : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph(selectedRadio3)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,3).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("IBAN : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));

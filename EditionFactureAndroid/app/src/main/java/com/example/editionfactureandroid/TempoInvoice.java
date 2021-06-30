@@ -1,6 +1,7 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +16,14 @@ import java.time.format.DateTimeFormatter;
 
 public class TempoInvoice extends AppCompatActivity implements View.OnClickListener {
 
-
+    DatabaseHelper1 db1;
     EditText numeroaffaire, numerofacture;
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.tempo_facture);
-
+        db1= new DatabaseHelper1( this);
         Button next = findViewById(R.id.buttonnextTempoFacture);
         next.setOnClickListener(this);
 
@@ -31,10 +32,33 @@ public class TempoInvoice extends AppCompatActivity implements View.OnClickListe
 
 
         DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern("yyMMdd");
-        numeroaffaire.setText(LocalDate.now().format(dateFormatter));
-        numerofacture.setText(LocalDate.now().format(dateFormatter));
+        //NO DATA
+        Cursor cur = db1.getAllData();
+        System.out.println("__________________________________________");
+        System.out.println(cur.getInt(0) != null);
+        if (cur != null) {
 
+            int a = cur.getInt(0);
+            String aa = String.valueOf(a);
+            int b = cur.getInt(1);
+            String c = cur.getString(2);
 
+            if (c != LocalDate.now().format(DateTimeFormatter.ofPattern("dd"))) {
+                db1.updateData(aa, 1, LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+            } else {
+                db1.updateData(aa, b + 1, LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+            }
+            Cursor cur1 = db1.getAllData();
+
+            int d = cur1.getInt(0);
+            String dd = String.valueOf(a);
+            int e = cur1.getInt(1);
+            String ee = String.valueOf(e);
+            String f = cur1.getString(2);
+
+            numeroaffaire.setText(LocalDate.now().format(dateFormatter) + e);
+            numerofacture.setText(LocalDate.now().format(dateFormatter) + e);
+        }
     }
 
     @Override

@@ -92,7 +92,7 @@ public class CreateDevis extends AppCompatActivity implements RadioGroup.OnCheck
 
         if(v.getId()== R.id.buttonNextDevis){
 
-            if(genre.isEmpty()){
+                if(genre.isEmpty()){
                 Toast.makeText(this,"RadioButton obligatoire", Toast.LENGTH_LONG).show();
             }
             else if (nom.isEmpty()){

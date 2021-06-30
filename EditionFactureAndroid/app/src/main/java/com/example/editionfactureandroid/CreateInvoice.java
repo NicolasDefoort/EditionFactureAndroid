@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -80,7 +81,22 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){
-            startActivity(intent);
+
+            if(genre.isEmpty()){
+                Toast.makeText(this,"RadioButton obligatoire", Toast.LENGTH_LONG).show();
+            }
+            else if (nom.isEmpty()){
+                lastname.setError("Champ obligatoire");
+            }
+            else if (prenom.isEmpty()){
+                firstname.setError("Champ obligatoire");
+            }
+            else {
+                startActivity(intent);
+
+            }
+
+
         }
 
     }

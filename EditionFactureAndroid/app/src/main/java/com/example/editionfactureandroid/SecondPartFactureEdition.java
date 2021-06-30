@@ -1,9 +1,12 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.telephony.RadioAccessSpecifier;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -52,14 +56,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class SecondPartFactureEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     DatabaseHelper myDb;
     private float totalTVA;
-    private RadioGroup radioGroup2;
+    private RadioGroup radioGroup2, radioGroup3;
     private EditText designation,quantity, puHT,object,paiementPose,acompte,solde,datefin;
     private RadioButton selectedRadio2;
+    private String selectedRadio3;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
@@ -145,6 +153,12 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         radioGroup2.clearCheck();
         radioGroup2.setOnCheckedChangeListener(this);
 
+        radioGroup3 = (RadioGroup)findViewById(R.id.RadioGroupReglement);
+        radioGroup3.clearCheck();
+        radioGroup3.check(R.id.radioButtonVirement);
+        selectedRadio3="Virement";
+        radioGroup3.setOnCheckedChangeListener(this);
+
         Intent intent =getIntent();
         designation.setText(intent.getStringExtra("designation"));
         object.setText(intent.getStringExtra("objet"));
@@ -165,8 +179,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
 
 
-
-
     }
 
     public static String upperCaseFirst(String val) {
@@ -179,7 +191,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         selectedRadio2= (RadioButton)group.findViewById(checkedId);
 
-
+        selectedRadio3 = ((RadioButton) findViewById(radioGroup3.getCheckedRadioButtonId())).getText().toString();
 
         //String r1=(String) selectedRadio2.getText();
         //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
@@ -448,15 +460,15 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         }
 
-
-
-
-
         table.addCell(new Cell(1,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("Date d'échéance :").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().plusDays(7).format(dateFormatter))).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell(1,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph("Mode de règlement : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(1,4).add(new Paragraph(selectedRadio3)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(1,3).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("IBAN : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
@@ -466,9 +478,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,2).add(new Paragraph("BIC : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("CEPAFRPP627")).setBorder(Border.NO_BORDER));
 
-
         table.addCell(new Cell(4,9).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
-
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
 
@@ -499,10 +509,37 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         }
 
-        startActivity(new Intent(this, MainActivity.class));
+        String subject = designat + " " + nom.toUpperCase() + " " +prenom.toUpperCase();
+
+        ActivityCompat.requestPermissions(this,new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        String stringFile = Environment.getExternalStorageDirectory().getPath()+ File.separator+"Cothermie"+File.separator+"Facture"+File.separator+upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf";
+
+        buttonShareFile(stringFile, subject);
 
 
     }
+
+
+    public void buttonShareFile(String stringFile, String subject){
+
+        File file = new File (stringFile);
+        if (!file.exists()){
+            Toast.makeText(this,"File doesn't exists",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intentShare = new Intent(Intent.ACTION_SEND);
+        intentShare.setType("application/pdf");
+        intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
+        intentShare.putExtra(Intent.EXTRA_SUBJECT,subject);
+        intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+
+        startActivity(Intent.createChooser(intentShare,"Share the file ..."));
+    }
+
 
 
 }

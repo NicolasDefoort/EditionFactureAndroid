@@ -1,8 +1,12 @@
 package com.example.editionfactureandroid;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -40,6 +45,9 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class SecondPartDevisEdition extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
@@ -117,6 +125,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createPDF() throws FileNotFoundException{
+
 
         DecimalFormat df = new DecimalFormat ( ) ;
         df.setMaximumFractionDigits ( 2 ) ;
@@ -382,6 +391,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
             Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
         }
 
+
         boolean isInserted1 = db1.insertData("dd","dd");
         if(isInserted1=true){
             Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
@@ -390,17 +400,32 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
             Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
         }
 
+        String subject = designat + " " + nom.toUpperCase() + " " + prenom.toUpperCase();
 
-        boolean isUpdate = db1.updateData("1","1",LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
-        if(isUpdate=true){
-            Toast.makeText(SecondPartDevisEdition.this,"Data1 Inserted",Toast.LENGTH_LONG).show();
-        }
+        ActivityCompat.requestPermissions(this,new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
-        else{
-            Toast.makeText(SecondPartDevisEdition.this,"Data1 not Inserted",Toast.LENGTH_LONG).show();
-        }
-        startActivity(new Intent(this, MainActivity.class));
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        String stringFile = Environment.getExternalStorageDirectory().getPath()+ File.separator+"Cothermie"+File.separator+"Devis"+File.separator+upperCaseFirst(nom)+upperCaseFirst(prenom)+LocalDate.now().format(dateFormatter1)+".pdf";
 
+        buttonShareFile(stringFile, subject);
 
     }
+    public void buttonShareFile(String stringFile, String subject){
+
+        File file = new File (stringFile);
+        if (!file.exists()){
+            Toast.makeText(this,"File doesn't exists",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intentShare = new Intent(Intent.ACTION_SEND);
+        intentShare.setType("application/pdf");
+        intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
+        intentShare.putExtra(Intent.EXTRA_SUBJECT,subject);
+        intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+
+        startActivity(Intent.createChooser(intentShare,"Share the file ..."));
+    }
+
 }

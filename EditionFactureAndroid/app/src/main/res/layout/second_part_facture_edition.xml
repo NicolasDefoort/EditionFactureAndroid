@@ -205,4 +205,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextSolde"
         app:layout_constraintTop_toBottomOf="@+id/editTextPaiementPose" />
+
+    <RadioGroup
+        android:id="@+id/RadioGroupReglement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSolde">
+
+        <RadioButton
+            android:id="@+id/radioButtonVirement"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:text="Virement" />
+
+        <RadioButton
+            android:id="@+id/radioButtonChèque"
+            android:layout_width="135dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Chèque" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEspece"
+            android:layout_width="124dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Espèce" />
+
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
