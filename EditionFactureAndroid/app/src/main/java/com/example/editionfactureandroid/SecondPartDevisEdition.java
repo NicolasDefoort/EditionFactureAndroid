@@ -391,14 +391,35 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
             Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
         }
 
-
-        boolean isInserted1 = db1.insertData("dd","dd");
-        if(isInserted1=true){
-            Toast.makeText(SecondPartDevisEdition.this,"Data Inserted",Toast.LENGTH_LONG).show();
+        DateTimeFormatter dateFormatter2 =DateTimeFormatter.ofPattern("dd");
+        Cursor cur = db1.getAllData();
+        System.out.println("__________________________________________");
+        cur.moveToFirst();
+        System.out.println(cur.getCount());
+        if (cur.getCount()==0){
+            boolean isInserted1 = db1.insertData(1,LocalDate.now().format(dateFormatter2));
+            if(isInserted1=true){
+                Toast.makeText(SecondPartDevisEdition.this,"Data Updated",Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(SecondPartDevisEdition.this,"Data not Updated",Toast.LENGTH_LONG).show();
+            }
         }
         else{
-            Toast.makeText(SecondPartDevisEdition.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+            boolean isInserted1 = db1.updateData(1,2,LocalDate.now().format(dateFormatter2));
+            if(isInserted1=true){
+                Toast.makeText(SecondPartDevisEdition.this,"Data Updated",Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(SecondPartDevisEdition.this,"Data not Updated",Toast.LENGTH_LONG).show();
+            }
         }
+
+
+
+
+
+
 
         String subject = designat + " " + nom.toUpperCase() + " " + prenom.toUpperCase();
 

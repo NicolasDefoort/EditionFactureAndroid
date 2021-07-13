@@ -29,8 +29,8 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" create table " + TABLE_NAME+" (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "NUMERO TEXT   , " +
-                "JOUR TEXT"+
+                "NUMERO INTEGER   , " +
+                "JOUR INTEGER"+
                 ")" );
 
 
@@ -43,7 +43,7 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertData(String numero,String jour){
+    public boolean insertData(int numero,String jour){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,numero);
@@ -70,17 +70,19 @@ public class DatabaseHelper1  extends SQLiteOpenHelper {
 
 
     public Integer deleteData(String id){
+        String[] array = {String.valueOf(id)};
         SQLiteDatabase db =this.getWritableDatabase();
-        return db.delete(TABLE_NAME,"ID = ?",new String[]{id});
+        return db.delete(TABLE_NAME,"ID = ?",array);
     }
 
-    public boolean updateData(String id,int numero,String jour){
+    public boolean updateData(int id,int numero,String jour){
+        String[] array = {String.valueOf(id)};
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues =new ContentValues();
         contentValues.put(COL_1,id);
         contentValues.put(COL_2,numero);
         contentValues.put(COL_3,jour);
-        db.update(TABLE_NAME,contentValues, " ID = ?", new String[]{id});
+        db.update(TABLE_NAME,contentValues, " ID = ?", array);
         return true;
 
     }
