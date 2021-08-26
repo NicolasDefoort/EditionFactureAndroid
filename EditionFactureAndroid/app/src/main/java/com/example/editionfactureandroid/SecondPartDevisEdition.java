@@ -72,7 +72,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         Button createDevis = findViewById(R.id.buttonCreateDevis);
         createDevis.setOnClickListener(this);
 
-        radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA);
+        radioGroup2 = (RadioGroup)findViewById(R.id.radioGroupTVA2);
         radioGroup2.clearCheck();
         radioGroup2.check(R.id.radioButton155);
 
@@ -363,7 +363,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         table.addCell(new Cell(1,5).add(new Paragraph("SIGNATURE").setFontSize(8)).setBorder(Border.NO_BORDER));
 
         table.addCell(new Cell(3,4).add(new Paragraph(LocalDate.now().format(dateFormatter))).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(3,5).add(image4.setRotationAngle(1.5708)).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell(3,5).add(image4).setBorder(Border.NO_BORDER));
 
 
         table.addCell(new Cell(1,9).add(new Paragraph("Conditions générales de vente :").setFontSize(6).setFontColor(blueFont)).setBorder(Border.NO_BORDER));
@@ -395,7 +395,7 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         Cursor cur = db1.getAllData();
         System.out.println("__________________________________________");
         cur.moveToFirst();
-        System.out.println(cur.getCount());
+        System.out.println(cur.getString(2));
         if (cur.getCount()==0){
             boolean isInserted1 = db1.insertData(1,LocalDate.now().format(dateFormatter2));
             if(isInserted1=true){
@@ -406,6 +406,30 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
             }
         }
         else{
+
+            if(cur.getString(2)==LocalDate.now().format(dateFormatter2)){
+                int num = cur.getInt(1);
+
+                boolean isInserted1 = db1.updateData(1,num+1,LocalDate.now().format(dateFormatter2));
+                if(isInserted1=true){
+                    Toast.makeText(SecondPartDevisEdition.this,"Data Updated",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(SecondPartDevisEdition.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            else{
+                boolean isInserted1 = db1.updateData(1,1,LocalDate.now().format(dateFormatter2));
+                if(isInserted1=true){
+                    Toast.makeText(SecondPartDevisEdition.this,"Data Updated",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(SecondPartDevisEdition.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                }
+            }
+
+
             boolean isInserted1 = db1.updateData(1,2,LocalDate.now().format(dateFormatter2));
             if(isInserted1=true){
                 Toast.makeText(SecondPartDevisEdition.this,"Data Updated",Toast.LENGTH_LONG).show();
@@ -442,9 +466,9 @@ public class SecondPartDevisEdition extends AppCompatActivity implements RadioGr
         Intent intentShare = new Intent(Intent.ACTION_SEND);
         intentShare.setType("application/pdf");
         intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
-        intentShare.putExtra(Intent.EXTRA_SUBJECT,subject);
-        intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
-                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+        intentShare.putExtra(Intent.EXTRA_BCC,
+                new String[] { "administration@cothermie.fr"});
+        intentShare.putExtra(Intent.EXTRA_TEXT,"Bonjour, \n Veuillez trouver en pièce jointe le devis correspondant aux travaux demandés. \n\n Salutations, \n\n Corentin LICTEVOUT \n SARL COTHERMIE");
 
         startActivity(Intent.createChooser(intentShare,"Share the file ..."));
     }

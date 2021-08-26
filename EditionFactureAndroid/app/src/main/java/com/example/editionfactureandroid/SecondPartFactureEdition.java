@@ -64,7 +64,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
     DatabaseHelper myDb;
     private float totalTVA;
-    private RadioGroup radioGroup2, radioGroup3;
+    private RadioGroup radioGroup2;
     private EditText designation,quantity, puHT,object,paiementPose,acompte,solde,datefin;
     private RadioButton selectedRadio2;
     private String selectedRadio3;
@@ -153,11 +153,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         radioGroup2.clearCheck();
         radioGroup2.setOnCheckedChangeListener(this);
 
-        radioGroup3 = (RadioGroup)findViewById(R.id.RadioGroupReglement);
-        radioGroup3.clearCheck();
-        radioGroup3.check(R.id.radioButtonVirement);
-        selectedRadio3="Virement";
-        radioGroup3.setOnCheckedChangeListener(this);
+
 
         Intent intent =getIntent();
         designation.setText(intent.getStringExtra("designation"));
@@ -191,7 +187,6 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         selectedRadio2= (RadioButton)group.findViewById(checkedId);
 
-        selectedRadio3 = ((RadioButton) findViewById(radioGroup3.getCheckedRadioButtonId())).getText().toString();
 
         //String r1=(String) selectedRadio2.getText();
         //Toast.makeText(this,r1, Toast.LENGTH_LONG).show();
@@ -364,10 +359,11 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
 
         table.addCell(new Cell(2,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph("Devis à l'attention de :").setBold()).setBorder(Border.NO_BORDER));
-
         table.addCell(new Cell(1,4).add(new Paragraph(genre +whiteSpace+upperCaseFirst(nom)+whiteSpace+ upperCaseFirst(prenom))).setBorder(Border.NO_BORDER));
+
         table.addCell(new Cell(1,5).add(new Paragraph("Date de fin des travaux : "+ dateFin)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(adresse)).setBorder(Border.NO_BORDER));
+
         table.addCell(new Cell(1,5).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,4).add(new Paragraph(code_postal +whiteSpace+ ville)).setBorder(Border.NO_BORDER));
 
@@ -466,9 +462,7 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         table.addCell(new Cell(1,2).add(new Paragraph("Date d'échéance :").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph(LocalDate.now().plusDays(7).format(dateFormatter))).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell(1,1).add(new Paragraph("")).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph("Mode de règlement : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
-        table.addCell(new Cell(1,4).add(new Paragraph(selectedRadio3)).setBorder(Border.NO_BORDER));
+
 
         table.addCell(new Cell(1,3).add(new Paragraph("")).setBorder(Border.NO_BORDER));
         table.addCell(new Cell(1,2).add(new Paragraph("IBAN : ").setBold().setTextAlignment(TextAlignment.RIGHT)).setBorder(Border.NO_BORDER));
@@ -533,9 +527,9 @@ public class SecondPartFactureEdition extends AppCompatActivity implements Radio
         Intent intentShare = new Intent(Intent.ACTION_SEND);
         intentShare.setType("application/pdf");
         intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
-        intentShare.putExtra(Intent.EXTRA_SUBJECT,subject);
-        intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
-                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+        intentShare.putExtra(Intent.EXTRA_BCC,
+                new String[] { "administration@cothermie.fr"});
+        intentShare.putExtra(Intent.EXTRA_TEXT,"Bonjour, \n Veuillez trouver en pièce jointe la facture correspondant aux travaux réalisés. \n\n Salutations, \n\n Corentin LICTEVOUT \n SARL COTHERMIE");
 
         startActivity(Intent.createChooser(intentShare,"Share the file ..."));
     }

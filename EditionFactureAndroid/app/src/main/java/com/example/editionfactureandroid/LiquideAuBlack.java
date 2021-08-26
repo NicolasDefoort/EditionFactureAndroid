@@ -43,7 +43,7 @@ public class LiquideAuBlack extends AppCompatActivity implements View.OnClickLis
 
         Intent intentShare = new Intent(Intent.ACTION_SEND);
         intentShare.setType("application/pdf");
-        intentShare.putExtra(Intent.EXTRA_SUBJECT,"Liquide"+ " "+name+" "+ firstname);
+        intentShare.putExtra(Intent.EXTRA_SUBJECT,"Bidon"+ " "+name+" "+ firstname);
         intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
                 new String[] { "nicolas.defoort@isen.yncrea.fr"});
         intentShare.putExtra(Intent.EXTRA_TEXT   , name+ " " +firstname + " "  + total+ " €");

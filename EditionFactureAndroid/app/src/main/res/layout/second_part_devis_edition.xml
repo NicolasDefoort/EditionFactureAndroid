@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDesignation" />
 
     <RadioGroup
-        android:id="@+id/radioGroupTVA"
+        android:id="@+id/radioGroupTVA2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -124,7 +124,7 @@
         android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroupTVA"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupTVA2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
 
