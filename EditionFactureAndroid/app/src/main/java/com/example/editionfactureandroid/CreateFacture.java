@@ -99,7 +99,7 @@ public class CreateFacture extends AppCompatActivity implements RadioGroup.OnChe
         intent1.putExtra("adresse",adresse);
         intent1.putExtra("code postal",codePostal);
         intent1.putExtra("ville",ville);
-        intent1.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
+        intent1.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace+codePostal+whiteSpace+ville+whiteSpace));
         intent1.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         Intent intent =getIntent();

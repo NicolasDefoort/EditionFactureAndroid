@@ -77,7 +77,7 @@ public class CreateInvoice extends AppCompatActivity implements RadioGroup.OnChe
         intent.putExtra("adresse",adresse);
         intent.putExtra("code postal",codePostal);
         intent.putExtra("ville",ville);
-        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace));
+        intent.putExtra("todoAdresse",todoAdresse(adresse+whiteSpace+codePostal+whiteSpace+ville+whiteSpace));
         intent.putExtra("todoNom",todonom(nom+whiteSpace+prenom+whiteSpace));
 
         if(v.getId()== R.id.buttonNextDevis){

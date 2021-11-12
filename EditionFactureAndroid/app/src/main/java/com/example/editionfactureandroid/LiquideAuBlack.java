@@ -45,7 +45,7 @@ public class LiquideAuBlack extends AppCompatActivity implements View.OnClickLis
         intentShare.setType("application/pdf");
         intentShare.putExtra(Intent.EXTRA_SUBJECT,"Bidon"+ " "+name+" "+ firstname);
         intentShare.putExtra(android.content.Intent.EXTRA_EMAIL,
-                new String[] { "nicolas.defoort@isen.yncrea.fr"});
+                new String[] { "Administration@cothermie.fr "});
         intentShare.putExtra(Intent.EXTRA_TEXT   , name+ " " +firstname + " "  + total+ " €");
 
         startActivity(Intent.createChooser(intentShare,"Share the file ..."));
